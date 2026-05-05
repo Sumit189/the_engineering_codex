@@ -1,0 +1,13 @@
+{
+  "id": "backend-engineering",
+  "title": "Backend Engineering for the AI Era",
+  "subtitle": "7-Day Intermediate-to-Advanced",
+  "description": "Build, scale, and operate production backends that serve both human and AI traffic — APIs and streaming, storage from Postgres to vector stores, caching, queues, distributed systems, reliability, observability, and the patterns that emerged when LLMs became the slowest dependency in your stack.",
+  "color": "#7c3aed",
+  "duration": "~28 hours",
+  "chapters": 9,
+  "days": 7,
+  "level": "Intermediate to Advanced",
+  "tags": ["APIs", "REST", "gRPC", "Streaming", "SQL", "NoSQL", "Vector DB", "Caching", "Queues", "Distributed Systems", "Observability", "RAG", "Reliability"],
+  "coverImage": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200"
+}

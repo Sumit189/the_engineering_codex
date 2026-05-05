@@ -1,0 +1,44 @@
+[
+  {
+    "day": 1,
+    "title": "Foundations & API Design",
+    "color": "#7c3aed",
+    "chapterIds": ["backend-foundations", "api-design"]
+  },
+  {
+    "day": 2,
+    "title": "Storage & Caching",
+    "color": "#0891b2",
+    "chapterIds": ["storage-systems", "caching-read-paths"]
+  },
+  {
+    "day": 3,
+    "title": "Concurrency & Async Work",
+    "color": "#f59e0b",
+    "chapterIds": ["async-and-queues"]
+  },
+  {
+    "day": 4,
+    "title": "Distributed Systems",
+    "color": "#dc2626",
+    "chapterIds": ["distributed-systems"]
+  },
+  {
+    "day": 5,
+    "title": "Reliability Engineering",
+    "color": "#059669",
+    "chapterIds": ["reliability-engineering"]
+  },
+  {
+    "day": 6,
+    "title": "Observability",
+    "color": "#2563eb",
+    "chapterIds": ["observability"]
+  },
+  {
+    "day": 7,
+    "title": "The AI-Era Backend",
+    "color": "#a855f7",
+    "chapterIds": ["ai-era-backend"]
+  }
+]

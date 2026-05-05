@@ -149,4 +149,4 @@ Open a GitHub Issue with:
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+[PolyForm Noncommercial License 1.0.0](LICENSE) — free for personal, educational, and non-commercial use. Commercial use is not permitted.

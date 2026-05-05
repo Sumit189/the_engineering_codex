@@ -17,5 +17,6 @@
     "id": "vllm-trtllm",
     "title": "vLLM & TRT-LLM",
     "folder": "day2"
-  }
+  },
+  "coverImage": "/covers/llm-systems/day1-pm-quantization.jpg"
 }

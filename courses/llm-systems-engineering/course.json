@@ -8,5 +8,13 @@
   "chapters": 9,
   "days": 7,
   "level": "Beginner to Advanced",
-  "tags": ["GPU", "vLLM", "Inference", "Distributed Training", "RAG", "Observability"]
+  "tags": [
+    "GPU",
+    "vLLM",
+    "Inference",
+    "Distributed Training",
+    "RAG",
+    "Observability"
+  ],
+  "coverImage": "/covers/courses/llm-systems-engineering.jpg"
 }

@@ -13,5 +13,6 @@
     "title": "Secure SDLC",
     "folder": "day6"
   },
-  "next": null
+  "next": null,
+  "coverImage": "/covers/application-security/day7-cloud-incident-response.jpg"
 }

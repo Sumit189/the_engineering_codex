@@ -12,20 +12,22 @@ interface Props {
 export default function ChapterNavBar({ courseId, prev, next, chapterTitle }: Props) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 lg:left-64 h-[72px] z-40
-      bg-[rgba(253,250,248,0.82)] dark:bg-[rgba(14,11,8,0.88)]
-      backdrop-blur-2xl saturate-150
-      border-t border-[rgba(220,196,176,0.5)] dark:border-[rgba(30,26,22,0.8)]
+      bg-[rgba(253,250,248,0.55)] dark:bg-[rgba(15,17,21,0.55)]
+      backdrop-blur-2xl backdrop-saturate-[1.8]
+      border-t border-[rgba(220,196,176,0.4)] dark:border-[rgba(255,255,255,0.06)]
+      shadow-[0_-1px_0_rgba(255,255,255,0.5)_inset] dark:shadow-[0_-1px_0_rgba(255,255,255,0.04)_inset]
       flex items-center justify-between px-5 gap-4">
 
       {prev ? (
         <Link href={`/courses/${courseId}/chapters/${prev.id}`}
           className="flex items-center gap-2 px-4 py-2.5 rounded-2xl
-            bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(35,30,25,0.6)]
-            border border-[rgba(220,196,176,0.6)] dark:border-[rgba(50,40,32,0.7)]
+            bg-[rgba(255,255,255,0.35)] dark:bg-[rgba(255,255,255,0.04)]
+            border border-[rgba(220,196,176,0.5)] dark:border-[rgba(255,255,255,0.08)]
             text-[12.5px] font-bold text-[#554336] dark:text-[#c2c6d2]
-            hover:bg-[rgba(247,232,218,0.9)] dark:hover:bg-[rgba(50,40,32,0.9)]
-            hover:border-[rgba(141,75,0,.4)] hover:text-[#231a13] dark:hover:text-[#e6e8ee]
-            transition-all backdrop-blur-sm whitespace-nowrap shrink-0 group">
+            hover:bg-[rgba(255,255,255,0.6)] dark:hover:bg-[rgba(255,255,255,0.08)]
+            hover:border-[rgba(141,75,0,.4)] dark:hover:border-[rgba(255,255,255,0.14)]
+            hover:text-[#231a13] dark:hover:text-[#e6e8ee]
+            transition-all backdrop-blur-md whitespace-nowrap shrink-0 group">
           <span className="material-symbols-outlined transition-transform group-hover:-translate-x-0.5"
             style={{ fontSize: 14 }}>arrow_back</span>
           <span className="hidden sm:inline truncate max-w-[140px]">{prev.title}</span>

@@ -17,5 +17,6 @@
     "id": "owasp-top-10-part-2",
     "title": "OWASP Top 10 — Part II",
     "folder": "day4"
-  }
+  },
+  "coverImage": "/covers/application-security/day3-owasp-pt1.jpg"
 }

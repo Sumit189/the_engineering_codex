@@ -17,5 +17,6 @@
     "id": "authn-authz",
     "title": "AuthN & AuthZ",
     "folder": "day2-pm"
-  }
+  },
+  "coverImage": "/covers/application-security/day2-am-cryptography.jpg"
 }

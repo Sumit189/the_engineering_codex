@@ -17,5 +17,6 @@
     "id": "cloud-and-incident-response",
     "title": "Cloud & Incident Response",
     "folder": "day7"
-  }
+  },
+  "coverImage": "/covers/application-security/day6-secure-sdlc.jpg"
 }

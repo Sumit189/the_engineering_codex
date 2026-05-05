@@ -72,7 +72,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
               transition-colors block">
               Course Overview
             </span>
-            <span className="text-[10.5px] text-[#a08878] dark:text-[#5d6373]">
+            <span className="text-[10.5px] text-[#7a6047] dark:text-[#9aa1b2]">
               {done}/{total} chapters
               {done < total && (
                 <> · {formatDuration(remainingMins)} left</>
@@ -91,7 +91,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
                 className={`text-[9.5px] font-bold py-1 rounded-lg text-center transition-all
                   ${allDone
                     ? 'bg-gradient-to-br from-[#8d4b00] to-[#c97000] text-white shadow-sm'
-                    : 'bg-[#f0e4db] dark:bg-[#1a1c22] text-[#a08878] dark:text-[#5d6373] hover:bg-[#e8d4c8] dark:hover:bg-[#1d212a]'
+                    : 'bg-[#f0e4db] dark:bg-[#1a1c22] text-[#5c4434] dark:text-[#9aa1b2] hover:bg-[#e8d4c8] dark:hover:bg-[#1d212a]'
                   }`}>
                 D{day}
               </Link>
@@ -102,7 +102,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
 
       {/* Chapter list */}
       <div className="flex-1 overflow-y-auto py-2">
-        <div className="px-4 pt-1 pb-1.5 text-[9.5px] font-black text-[#b0998a] dark:text-[#5d6373]
+        <div className="px-4 pt-1 pb-1.5 text-[9.5px] font-black text-[#7a6047] dark:text-[#9aa1b2]
           uppercase tracking-[0.13em]">
           Chapters
         </div>
@@ -118,18 +118,18 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
                       ? 'bg-gradient-to-r from-[#fff3e8] to-[#fff8f3] dark:from-[#241a08] dark:to-[#1f1608] text-[#8d4b00] dark:text-[#fbbf24] font-bold border-l-[3px] border-[#d97706] dark:border-[#fbbf24] pl-[7px]'
                       : isChDone
                         ? 'text-[#059669] dark:text-[#4ade80] hover:bg-[#f0fdf4] dark:hover:bg-[#0c1f15]'
-                        : 'text-[#887364] hover:bg-[#f5ede7] dark:hover:bg-[#1d212a] hover:text-[#3c2c22] dark:hover:text-[#c2c6d2]'
+                        : 'text-[#4a3628] dark:text-[#c2c6d2] hover:bg-[#f5ede7] dark:hover:bg-[#1d212a] hover:text-[#231a13] dark:hover:text-[#ede4da]'
                     }`}>
                   <span className="material-symbols-outlined shrink-0"
                     style={{ fontSize: 15,
-                      color: active ? '#d97706' : isChDone ? '#059669' : '#d4bfb0' }}>
+                      color: active ? '#d97706' : isChDone ? '#059669' : '#a08878' }}>
                     {isChDone ? 'check_circle' : active ? 'menu_book' : 'radio_button_unchecked'}
                   </span>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[9.5px] opacity-50 uppercase tracking-wider font-semibold">
+                    <span className="text-[9.5px] uppercase tracking-wider font-semibold text-[#9a826f] dark:text-[#7c8294]">
                       {idx + 1} · {ch.dayLabel}
                     </span>
-                    <span className="truncate text-[12px]">{ch.shortTitle}</span>
+                    <span className="truncate text-[12px] font-medium">{ch.shortTitle}</span>
                   </div>
                 </Link>
               </li>
@@ -141,7 +141,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
       {/* Bookmarks */}
       {courseBookmarks.length > 0 && (
         <div className="border-t border-[#ecddd5] dark:border-[#262b35] p-2">
-          <div className="px-2 py-1 text-[9.5px] font-black text-[#b0998a] dark:text-[#5d6373]
+          <div className="px-2 py-1 text-[9.5px] font-black text-[#7a6047] dark:text-[#9aa1b2]
             uppercase tracking-[0.13em]">
             Bookmarks
           </div>
@@ -153,7 +153,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
                 <Link href={`/courses/${courseId}/chapters/${bm.chapterId}`}
                   className="flex items-center gap-2 flex-1 min-w-0">
                   <span className="material-symbols-outlined text-[#d97706]" style={{ fontSize: 13 }}>bookmark</span>
-                  <span className="text-[12px] text-[#554336] dark:text-[#8d93a3] truncate">{bm.title}</span>
+                  <span className="text-[12px] text-[#3c2c22] dark:text-[#c2c6d2] truncate">{bm.title}</span>
                 </Link>
                 <button onClick={() => removeBookmark(courseId, bm.chapterId)}
                   className="opacity-0 group-hover:opacity-100 text-[#b0998a] hover:text-red-500

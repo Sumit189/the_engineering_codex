@@ -1,0 +1,60 @@
+[
+  {
+    "day": 1,
+    "title": "GPU Foundations",
+    "color": "#22d3ee",
+    "chapterIds": [
+      "gpu-fundamentals",
+      "quantization-batching"
+    ]
+  },
+  {
+    "day": 2,
+    "title": "Inference Engines",
+    "color": "#f59e0b",
+    "chapterIds": [
+      "vllm-trtllm"
+    ]
+  },
+  {
+    "day": 3,
+    "title": "KV Cache & Speed",
+    "color": "#10b981",
+    "chapterIds": [
+      "kv-caching"
+    ]
+  },
+  {
+    "day": 4,
+    "title": "Distributed Training",
+    "color": "#a78bfa",
+    "chapterIds": [
+      "distributed-training"
+    ]
+  },
+  {
+    "day": 5,
+    "title": "Serving at Scale",
+    "color": "#f87171",
+    "chapterIds": [
+      "model-serving"
+    ]
+  },
+  {
+    "day": 6,
+    "title": "Vector DBs & RAG",
+    "color": "#22d3ee",
+    "chapterIds": [
+      "vector-db"
+    ]
+  },
+  {
+    "day": 7,
+    "title": "Cost & Observability",
+    "color": "#ec4899",
+    "chapterIds": [
+      "prompt-caching",
+      "observability"
+    ]
+  }
+]

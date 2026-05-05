@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark warm background -->
+  <rect width="32" height="32" rx="7" fill="#110e0b"/>
+
+  <!-- Stylised "A" as circuit traces — represents AI + learning -->
+  <!-- Left diagonal -->
+  <line x1="16" y1="5.5" x2="7.5" y2="26.5" stroke="#e8903a" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- Right diagonal -->
+  <line x1="16" y1="5.5" x2="24.5" y2="26.5" stroke="#e8903a" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- Crossbar -->
+  <line x1="11.2" y1="19.5" x2="20.8" y2="19.5" stroke="#d97706" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Circuit pads at endpoints -->
+  <circle cx="16"   cy="5.5"  r="2.5" fill="#e8903a"/>
+  <circle cx="11.2" cy="19.5" r="1.8" fill="#d97706"/>
+  <circle cx="20.8" cy="19.5" r="1.8" fill="#d97706"/>
+  <circle cx="7.5"  cy="26.5" r="1.5" fill="#6b3800"/>
+  <circle cx="24.5" cy="26.5" r="1.5" fill="#6b3800"/>
+</svg>

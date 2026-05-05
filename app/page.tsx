@@ -57,8 +57,10 @@ export default function LandingPage() {
           <HeroTerminal stats={stats} />
 
           <div className="relative z-10 lg:max-w-[58%]">
-            <p className="text-[11px] font-black text-[#8d4b00] uppercase tracking-widest mb-4">
-              The Engineering Codex
+            <p className="inline-flex items-center gap-2 text-[11px] font-black text-[#8d4b00] dark:text-[#fbbf24]
+              uppercase tracking-widest mb-4">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#d97706] dark:bg-[#fbbf24]" />
+              Deep dives · Open source · Built to ship
             </p>
             <h1 className="text-4xl md:text-5xl font-black text-[#231a13] dark:text-white
               leading-[1.08] tracking-tight mb-5">

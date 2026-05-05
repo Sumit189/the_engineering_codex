@@ -9,6 +9,31 @@ interface Props {
   progress?:   number; // 0-100
 }
 
+function Logo() {
+  return (
+    <svg
+      width="24" height="24" viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="shrink-0 drop-shadow-[0_1px_2px_rgba(141,75,0,0.25)]"
+    >
+      <defs>
+        <linearGradient id="hdr-logo-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stopColor="#f59e0b" />
+          <stop offset="55%" stopColor="#d97706" />
+          <stop offset="100%" stopColor="#8d4b00" />
+        </linearGradient>
+      </defs>
+      {/* Spine — stacked codex pages */}
+      <rect x="2" y="3" width="20" height="18" rx="4" fill="url(#hdr-logo-grad)" />
+      <rect x="2" y="3" width="20" height="18" rx="4" fill="none"
+        stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+      <line x1="6"  y1="8"  x2="18" y2="8"  stroke="rgba(255,255,255,0.55)" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="6"  y1="12" x2="15" y2="12" stroke="rgba(255,255,255,0.45)" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="6"  y1="16" x2="13" y2="16" stroke="rgba(255,255,255,0.35)" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function Header({ courseTitle, courseId, progress }: Props) {
   const [dark,    setDark]    = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -56,9 +81,10 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
         {courseId ? (
           <>
             <Link href="/"
-              className="text-sm font-black tracking-tight text-[#231a13] dark:text-white
+              className="flex items-center gap-2 text-[15px] font-black tracking-tight text-[#231a13] dark:text-white
                 hover:text-[#8d4b00] dark:hover:text-[#fbbf24] transition-colors whitespace-nowrap shrink-0">
-              The Engineering Codex
+              <Logo />
+              <span>The Engineering Codex</span>
             </Link>
             {courseTitle && (
               <>
@@ -78,10 +104,11 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
       {!courseId && (
         <Link href="/"
           aria-label="Home"
-          className="absolute left-1/2 -translate-x-1/2 text-sm font-black tracking-tight
+          className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-[15px] font-black tracking-tight
             text-[#231a13] dark:text-white
             hover:text-[#8d4b00] dark:hover:text-[#fbbf24] transition-colors whitespace-nowrap">
-          The Engineering Codex
+          <Logo />
+          <span>The Engineering Codex</span>
         </Link>
       )}
 

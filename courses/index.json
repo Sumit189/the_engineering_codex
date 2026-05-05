@@ -1,1 +1,13 @@
-["llm-systems-engineering", "application-security", "agentic-ai-llm-apis", "cloud-security"]
+{
+  "domains": [
+    { "id": "ai",             "label": "AI & Agents",   "color": "#4f46e5", "icon": "smart_toy" },
+    { "id": "infrastructure", "label": "Infrastructure", "color": "#0d9488", "icon": "memory" },
+    { "id": "security",       "label": "Security",       "color": "#dc2626", "icon": "shield" }
+  ],
+  "courses": [
+    { "slug": "llm-systems-engineering", "domain": "infrastructure" },
+    { "slug": "agentic-ai-llm-apis",     "domain": "ai" },
+    { "slug": "application-security",    "domain": "security" },
+    { "slug": "cloud-security",          "domain": "security" }
+  ]
+}

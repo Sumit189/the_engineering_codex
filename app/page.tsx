@@ -1,11 +1,11 @@
-import Link from 'next/link';
 import Header from '@/components/Header';
-import ReadTime from '@/components/ReadTime';
-import { getAllCourses, getCourseIds, getChapters } from '@/lib/courses';
+import CourseGrid from '@/components/CourseGrid';
+import { getAllCourses, getCourseIds, getChapters, getDomains } from '@/lib/courses';
 import { countWords } from '@/lib/readingTime';
 
 export default function LandingPage() {
   const courses = getAllCourses();
+  const domains = getDomains();
 
   // Compute total word count per course at build time
   const wordCounts: Record<string, number> = {};
@@ -56,70 +56,7 @@ export default function LandingPage() {
           <p className="text-[11px] font-black text-[#887364] uppercase tracking-widest mb-4">
             Available Courses
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {courses.map(course => (
-              <Link key={course.id} href={`/courses/${course.id}`}
-                className="group relative bg-white dark:bg-[#0f1115]
-                  border border-[#e7e5e4] dark:border-[#2e3138] rounded-2xl overflow-hidden
-                  hover:shadow-[0_10px_32px_rgba(141,75,0,.12)] dark:hover:shadow-[0_10px_32px_rgba(0,0,0,.4)]
-                  hover:-translate-y-1 transition-all duration-200
-                  flex flex-col">
-
-                <div className="h-1" style={{ background: course.color }} />
-
-
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="text-[11px] font-bold text-[#887364] uppercase tracking-widest mb-1">
-                    {course.subtitle}
-                  </div>
-                  <h2 className="text-xl font-black text-[#231a13] dark:text-[#e6e8ee]
-                    tracking-tight mb-2 group-hover:text-[#8d4b00] transition-colors">
-                    {course.title}
-                  </h2>
-                  <p className="font-serif text-[15px] text-[#554336] dark:text-[#8d93a3]
-                    leading-relaxed mb-4 flex-1">
-                    {course.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {course.tags.slice(0, 5).map(tag => (
-                      <span key={tag}
-                        className="text-[11px] font-semibold px-2 py-0.5 rounded-full
-                          bg-[#f2dfd3] dark:bg-[#1a1c22]
-                          text-[#554336] dark:text-[#8d93a3]
-                          border border-[#dbc2b0] dark:border-[#363c48]">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-3 pt-4 border-t border-[#f2dfd3] dark:border-[#2e3138]
-                    text-[11px] font-semibold text-[#887364] dark:text-[#8d93a3]">
-                    <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
-                        style={{ fontSize: 12 }}>schedule</span>
-                      <ReadTime wordCount={wordCounts[course.id] ?? 0} />
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
-                        style={{ fontSize: 12 }}>layers</span>
-                      {course.chapters} chapters
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
-                        style={{ fontSize: 12 }}>calendar_today</span>
-                      {course.days} days
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
-                        style={{ fontSize: 12 }}>signal_cellular_alt</span>
-                      {course.level}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <CourseGrid courses={courses} domains={domains} wordCounts={wordCounts} />
         </div>
       </main>
     </>

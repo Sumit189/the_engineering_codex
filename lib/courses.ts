@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import type { CourseData, ChapterData, ScheduleDay } from '@/types';
+import type { CourseData, ChapterData, ScheduleDay, CourseIndex, Domain } from '@/types';
 
 const root = path.join(process.cwd(), 'courses');
 
@@ -8,12 +8,35 @@ function read<T>(...parts: string[]): T {
   return JSON.parse(fs.readFileSync(path.join(root, ...parts), 'utf8')) as T;
 }
 
+/** Read the registry. Supports both the new `{ domains, courses }` shape and
+ *  the legacy flat `string[]` shape so older branches don't break.            */
+function readIndex(): CourseIndex {
+  const raw = read<unknown>('index.json');
+  if (Array.isArray(raw)) {
+    return { domains: [], courses: (raw as string[]).map(slug => ({ slug, domain: '' })) };
+  }
+  return raw as CourseIndex;
+}
+
 export function getCourseIds(): string[] {
-  return read<string[]>('index.json');
+  return readIndex().courses.map(c => c.slug);
+}
+
+export function getDomains(): Domain[] {
+  return readIndex().domains;
+}
+
+/** Map of slug → domain id, for landing-page filtering. */
+export function getCourseDomainMap(): Record<string, string> {
+  const map: Record<string, string> = {};
+  for (const c of readIndex().courses) map[c.slug] = c.domain;
+  return map;
 }
 
 export function getCourse(courseId: string): CourseData {
-  return read<CourseData>(courseId, 'course.json');
+  const data = read<CourseData>(courseId, 'course.json');
+  const domain = getCourseDomainMap()[courseId];
+  return domain ? { ...data, domain } : data;
 }
 
 export function getAllCourses(): CourseData[] {

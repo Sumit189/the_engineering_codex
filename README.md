@@ -100,7 +100,11 @@ the_engineering_codex/
    - `index.json` — ordered list of chapter folder names
    - `schedule.json` — day-by-day groupings
    - One subfolder per chapter, each containing `chapter.json` (`ChapterData`)
-4. Register the slug in `courses/index.json`.
+4. Register the slug in `courses/index.json` and pick a domain. The file is a `{ domains, courses }` object — add a new entry to the `courses` array:
+   ```json
+   { "slug": "distributed-systems", "domain": "infrastructure" }
+   ```
+   The `domain` value must match an `id` in the `domains` array. To introduce a new domain, add it to the `domains` array (with `id`, `label`, `color`, and a Material Symbols `icon` name) — it will automatically appear as a filter chip on the landing page.
 
 Chapter content is HTML stored in the `content` field of `chapter.json`. Use semantic elements — the platform's CSS in `globals.css` handles typography, callout blocks, code blocks, and tables.
 

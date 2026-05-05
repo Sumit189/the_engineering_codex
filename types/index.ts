@@ -1,3 +1,20 @@
+export interface Domain {
+  id: string;
+  label: string;
+  color: string;
+  icon: string;
+}
+
+export interface CourseIndexEntry {
+  slug: string;
+  domain: string;
+}
+
+export interface CourseIndex {
+  domains: Domain[];
+  courses: CourseIndexEntry[];
+}
+
 export interface CourseData {
   id: string;
   title: string;
@@ -9,6 +26,7 @@ export interface CourseData {
   days: number;
   level: string;
   tags: string[];
+  domain?: string;
 }
 
 export interface ChapterNav {

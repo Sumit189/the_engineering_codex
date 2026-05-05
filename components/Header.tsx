@@ -45,8 +45,8 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
             onClick={toggleSidebar}
             aria-label={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
             className="w-8 h-8 flex items-center justify-center rounded-full shrink-0
-              hover:bg-[#f2dfd3] dark:hover:bg-[#1c1813] transition-colors">
-            <span className="material-symbols-outlined text-[#554336] dark:text-[#a89888]"
+              hover:bg-[#f2dfd3] dark:hover:bg-[#1d212a] transition-colors">
+            <span className="material-symbols-outlined text-[#554336] dark:text-[#8d93a3]"
               style={{ fontSize: 20 }}>
               {sidebarOpen ? 'menu_open' : 'menu'}
             </span>
@@ -60,7 +60,7 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
         </Link>
         {courseTitle && courseId && (
           <>
-            <span className="text-[#dbc2b0] dark:text-[#2f2923] shrink-0">/</span>
+            <span className="text-[#dbc2b0] dark:text-[#363c48] shrink-0">/</span>
             <Link href={`/courses/${courseId}`}
               className="text-xs font-semibold text-[#887364] hover:text-[#8d4b00] dark:hover:text-[#fbbf24]
                 transition-colors truncate max-w-[200px]">
@@ -73,7 +73,7 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
       {/* Right controls */}
       <div className="flex items-center gap-1 shrink-0">
         {progress !== undefined && (
-          <span className="text-[11px] font-black text-[#8d4b00] dark:text-[#e8903a] uppercase tracking-wider mr-1">
+          <span className="text-[11px] font-black text-[#8d4b00] dark:text-[#fbbf24] uppercase tracking-wider mr-1">
             {progress}%
           </span>
         )}
@@ -82,8 +82,8 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
             onClick={toggleTheme}
             aria-label="Toggle theme"
             className="w-8 h-8 flex items-center justify-center rounded-full
-              hover:bg-[#f2dfd3] dark:hover:bg-[#1c1813] transition-colors cursor-pointer">
-            <span className="material-symbols-outlined text-[#554336] dark:text-[#a89888]"
+              hover:bg-[#f2dfd3] dark:hover:bg-[#1d212a] transition-colors cursor-pointer">
+            <span className="material-symbols-outlined text-[#554336] dark:text-[#8d93a3]"
               style={{ fontSize: 19 }}>
               {dark ? 'light_mode' : 'dark_mode'}
             </span>

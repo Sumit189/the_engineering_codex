@@ -37,21 +37,21 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
     <aside
       className={`fixed top-14 left-0 w-64 h-[calc(100vh-56px)] z-40
         bg-gradient-to-b from-[#fdfaf8] to-[#f9f3ef]
-        dark:from-[#141108] dark:to-[#100e0a]
-        border-r border-[#ecddd5] dark:border-[#1e1a16]
+        dark:from-[#161920] dark:to-[#13161c]
+        border-r border-[#ecddd5] dark:border-[#262b35]
         flex flex-col overflow-hidden
         transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
     >
 
       {/* Progress header */}
-      <div className="p-4 pb-3 border-b border-[#ecddd5] dark:border-[#1e1a16]">
+      <div className="p-4 pb-3 border-b border-[#ecddd5] dark:border-[#262b35]">
         <Link href={`/courses/${courseId}`}
           className="flex items-center gap-3 mb-4 group">
           <div className="relative w-12 h-12 shrink-0 flex items-center justify-center">
             <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 48 48">
               <circle cx="24" cy="24" r="19" fill="none" stroke="#f0e2d8" strokeWidth="3.5"
-                className="dark:stroke-[#221e1a]"/>
+                className="dark:stroke-[#2e3138]"/>
               <circle cx="24" cy="24" r="19" fill="none" strokeWidth="3.5"
                 stroke="url(#progressGrad)"
                 strokeDasharray={circ} strokeDashoffset={offset}
@@ -64,15 +64,15 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
                 </linearGradient>
               </defs>
             </svg>
-            <span className="text-[10px] font-black text-[#8d4b00] dark:text-[#e8903a]">{pct}%</span>
+            <span className="text-[10px] font-black text-[#8d4b00] dark:text-[#fbbf24]">{pct}%</span>
           </div>
           <div className="min-w-0">
-            <span className="text-[11.5px] font-black text-[#231a13] dark:text-[#ede4da]
-              uppercase tracking-wide group-hover:text-[#8d4b00] dark:group-hover:text-[#e8903a]
+            <span className="text-[11.5px] font-black text-[#231a13] dark:text-[#e6e8ee]
+              uppercase tracking-wide group-hover:text-[#8d4b00] dark:group-hover:text-[#fbbf24]
               transition-colors block">
               Course Overview
             </span>
-            <span className="text-[10.5px] text-[#a08878] dark:text-[#5c4e44]">
+            <span className="text-[10.5px] text-[#a08878] dark:text-[#5d6373]">
               {done}/{total} chapters
               {done < total && (
                 <> · {formatDuration(remainingMins)} left</>
@@ -91,7 +91,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
                 className={`text-[9.5px] font-bold py-1 rounded-lg text-center transition-all
                   ${allDone
                     ? 'bg-gradient-to-br from-[#8d4b00] to-[#c97000] text-white shadow-sm'
-                    : 'bg-[#f0e4db] dark:bg-[#1c1813] text-[#a08878] dark:text-[#5c4e44] hover:bg-[#e8d4c8] dark:hover:bg-[#221e1a]'
+                    : 'bg-[#f0e4db] dark:bg-[#1a1c22] text-[#a08878] dark:text-[#5d6373] hover:bg-[#e8d4c8] dark:hover:bg-[#1d212a]'
                   }`}>
                 D{day}
               </Link>
@@ -102,7 +102,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
 
       {/* Chapter list */}
       <div className="flex-1 overflow-y-auto py-2">
-        <div className="px-4 pt-1 pb-1.5 text-[9.5px] font-black text-[#b0998a] dark:text-[#4a3e35]
+        <div className="px-4 pt-1 pb-1.5 text-[9.5px] font-black text-[#b0998a] dark:text-[#5d6373]
           uppercase tracking-[0.13em]">
           Chapters
         </div>
@@ -115,10 +115,10 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
                 <Link href={`/courses/${courseId}/chapters/${ch.id}`}
                   className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-[13px] transition-all
                     ${active
-                      ? 'bg-gradient-to-r from-[#fff3e8] to-[#fff8f3] dark:from-[#2a1200] dark:to-[#220f00] text-[#8d4b00] dark:text-[#e8903a] font-bold border-l-[3px] border-[#d97706] dark:border-[#e8903a] pl-[7px]'
+                      ? 'bg-gradient-to-r from-[#fff3e8] to-[#fff8f3] dark:from-[#241a08] dark:to-[#1f1608] text-[#8d4b00] dark:text-[#fbbf24] font-bold border-l-[3px] border-[#d97706] dark:border-[#fbbf24] pl-[7px]'
                       : isChDone
-                        ? 'text-[#059669] dark:text-[#4ade80] hover:bg-[#f0fdf4] dark:hover:bg-[#0a1f14]'
-                        : 'text-[#887364] hover:bg-[#f5ede7] dark:hover:bg-[#1c1813] hover:text-[#3c2c22] dark:hover:text-[#d9cfc4]'
+                        ? 'text-[#059669] dark:text-[#4ade80] hover:bg-[#f0fdf4] dark:hover:bg-[#0c1f15]'
+                        : 'text-[#887364] hover:bg-[#f5ede7] dark:hover:bg-[#1d212a] hover:text-[#3c2c22] dark:hover:text-[#c2c6d2]'
                     }`}>
                   <span className="material-symbols-outlined shrink-0"
                     style={{ fontSize: 15,
@@ -140,8 +140,8 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
 
       {/* Bookmarks */}
       {courseBookmarks.length > 0 && (
-        <div className="border-t border-[#ecddd5] dark:border-[#1e1a16] p-2">
-          <div className="px-2 py-1 text-[9.5px] font-black text-[#b0998a] dark:text-[#4a3e35]
+        <div className="border-t border-[#ecddd5] dark:border-[#262b35] p-2">
+          <div className="px-2 py-1 text-[9.5px] font-black text-[#b0998a] dark:text-[#5d6373]
             uppercase tracking-[0.13em]">
             Bookmarks
           </div>
@@ -149,11 +149,11 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
             {courseBookmarks.map(bm => (
               <li key={bm.chapterId}
                 className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl
-                  hover:bg-[#f5ede7] dark:hover:bg-[#1c1813] group transition-colors">
+                  hover:bg-[#f5ede7] dark:hover:bg-[#1d212a] group transition-colors">
                 <Link href={`/courses/${courseId}/chapters/${bm.chapterId}`}
                   className="flex items-center gap-2 flex-1 min-w-0">
                   <span className="material-symbols-outlined text-[#d97706]" style={{ fontSize: 13 }}>bookmark</span>
-                  <span className="text-[12px] text-[#554336] dark:text-[#a89888] truncate">{bm.title}</span>
+                  <span className="text-[12px] text-[#554336] dark:text-[#8d93a3] truncate">{bm.title}</span>
                 </Link>
                 <button onClick={() => removeBookmark(courseId, bm.chapterId)}
                   className="opacity-0 group-hover:opacity-100 text-[#b0998a] hover:text-red-500

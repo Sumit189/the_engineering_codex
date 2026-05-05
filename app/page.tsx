@@ -29,7 +29,7 @@ export default function LandingPage() {
             leading-[1.08] tracking-tight mb-5">
             Engineering courses<br />built for builders.
           </h1>
-          <p className="font-serif text-lg text-[#554336] dark:text-[#a89888]
+          <p className="font-serif text-lg text-[#554336] dark:text-[#8d93a3]
             max-w-xl leading-relaxed mb-10">
             Structured, deep-dive curricula for engineers who want to understand
             and operate production AI systems — not just use them.
@@ -42,10 +42,10 @@ export default function LandingPage() {
             ].map(({ icon, label }) => (
               <span key={label}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
-                  border border-[#dbc2b0] dark:border-[#2f2923]
-                  bg-white dark:bg-[#1c1813]
-                  text-[12px] font-semibold text-[#554336] dark:text-[#a89888]">
-                <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                  border border-[#dbc2b0] dark:border-[#363c48]
+                  bg-white dark:bg-[#1a1c22]
+                  text-[12px] font-semibold text-[#554336] dark:text-[#8d93a3]">
+                <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                   style={{ fontSize: 13 }}>{icon}</span>
                 {label}
               </span>
@@ -59,8 +59,8 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {courses.map(course => (
               <Link key={course.id} href={`/courses/${course.id}`}
-                className="group relative bg-white dark:bg-[#110e0b]
-                  border border-[#e7e5e4] dark:border-[#221e1a] rounded-2xl overflow-hidden
+                className="group relative bg-white dark:bg-[#0f1115]
+                  border border-[#e7e5e4] dark:border-[#2e3138] rounded-2xl overflow-hidden
                   hover:shadow-[0_10px_32px_rgba(141,75,0,.12)] dark:hover:shadow-[0_10px_32px_rgba(0,0,0,.4)]
                   hover:-translate-y-1 transition-all duration-200
                   flex flex-col">
@@ -82,11 +82,11 @@ export default function LandingPage() {
                   <div className="text-[11px] font-bold text-[#887364] uppercase tracking-widest mb-1">
                     {course.subtitle}
                   </div>
-                  <h2 className="text-xl font-black text-[#231a13] dark:text-[#ede4da]
+                  <h2 className="text-xl font-black text-[#231a13] dark:text-[#e6e8ee]
                     tracking-tight mb-2 group-hover:text-[#8d4b00] transition-colors">
                     {course.title}
                   </h2>
-                  <p className="font-serif text-[15px] text-[#554336] dark:text-[#a89888]
+                  <p className="font-serif text-[15px] text-[#554336] dark:text-[#8d93a3]
                     leading-relaxed mb-4 flex-1">
                     {course.description}
                   </p>
@@ -95,33 +95,33 @@ export default function LandingPage() {
                     {course.tags.slice(0, 5).map(tag => (
                       <span key={tag}
                         className="text-[11px] font-semibold px-2 py-0.5 rounded-full
-                          bg-[#f2dfd3] dark:bg-[#1c1813]
-                          text-[#554336] dark:text-[#a89888]
-                          border border-[#dbc2b0] dark:border-[#2f2923]">
+                          bg-[#f2dfd3] dark:bg-[#1a1c22]
+                          text-[#554336] dark:text-[#8d93a3]
+                          border border-[#dbc2b0] dark:border-[#363c48]">
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap gap-3 pt-4 border-t border-[#f2dfd3] dark:border-[#221e1a]
-                    text-[11px] font-semibold text-[#887364] dark:text-[#a89888]">
+                  <div className="flex flex-wrap gap-3 pt-4 border-t border-[#f2dfd3] dark:border-[#2e3138]
+                    text-[11px] font-semibold text-[#887364] dark:text-[#8d93a3]">
                     <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                         style={{ fontSize: 12 }}>schedule</span>
                       <ReadTime wordCount={wordCounts[course.id] ?? 0} />
                     </span>
                     <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                         style={{ fontSize: 12 }}>layers</span>
                       {course.chapters} chapters
                     </span>
                     <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                         style={{ fontSize: 12 }}>calendar_today</span>
                       {course.days} days
                     </span>
                     <span className="inline-flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                         style={{ fontSize: 12 }}>signal_cellular_alt</span>
                       {course.level}
                     </span>

@@ -256,8 +256,9 @@ body::before {
 }
 .callout::before {
   content: '';
-  position: absolute; left: 0; top: 14px; bottom: 14px;
-  width: 3px; border-radius: 2px;
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 14px 0 0 14px;
 }
 .callout-icon {
   font-size: 1.2rem; flex-shrink: 0; line-height: 1.5;
@@ -622,55 +623,81 @@ body::before {
 }
 .example-step .step-text { font-family: var(--font-serif); font-size: .96rem; color: var(--ink-2); line-height: 1.6; }
 
-/* Further reading */
+/* Further reading — single-line rows: [favicon] title  domain  ↗ */
 .further-reading {
   margin: 2.5rem 0 1.5rem;
-  padding: 1.15rem 1.35rem 1.25rem;
+  padding: 1.4rem 1.5rem 1.5rem;
   border: 1px solid var(--hairline);
-  border-radius: 14px;
-  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
-  position: relative;
-}
-.further-reading::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-3));
-  border-radius: 14px 14px 0 0;
+  border-radius: 16px;
+  background: var(--surface);
 }
 .further-reading-label {
-  display: inline-flex; align-items: center; gap: .4rem;
-  font-size: .65rem; font-weight: 800; text-transform: uppercase;
-  letter-spacing: .12em; color: var(--accent);
-  margin-bottom: .55rem;
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .15em; color: var(--accent);
+  padding-bottom: .9rem;
+  margin-bottom: .35rem;
+  border-bottom: 1px solid var(--hairline);
 }
 .further-reading ul {
   list-style: none; padding: 0; margin: 0;
-  font-family: var(--font-serif);
-  font-size: .94rem; line-height: 1.55;
-  color: var(--ink-2);
 }
-.further-reading li {
-  padding: .35rem 0 .35rem 1.5rem;
-  position: relative;
-  border-top: 1px dashed var(--hairline);
-}
-.further-reading li:first-child { border-top: none; }
-.further-reading li::before {
-  content: '↗';
-  position: absolute; left: 0; top: .45em;
-  color: var(--accent-2); font-weight: 800; font-size: .9em;
-}
+.further-reading li { padding: 0; margin: 0; border: none; }
+.further-reading li + li { border-top: 1px solid var(--hairline); }
+.further-reading li::before { content: none; }
 .further-reading a {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .85rem .65rem;
+  border-radius: 10px;
   color: var(--ink) !important;
   text-decoration: none !important;
+  font-family: var(--font-serif);
+  font-size: .98rem; line-height: 1.35;
   font-weight: 600;
+  transition: background-color .15s, color .15s, padding-left .15s;
+  position: relative;
 }
-.further-reading a:hover { color: var(--accent) !important; }
+.further-reading a::after {
+  content: '↗';
+  flex-shrink: 0;
+  color: var(--accent-2);
+  opacity: .45;
+  font-weight: 800;
+  font-size: .95em;
+  transition: transform .15s, opacity .15s, color .15s;
+}
+.fr-favicon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline-2);
+  flex-shrink: 0;
+  object-fit: contain;
+  padding: 2px;
+}
+.dark .fr-favicon { background: #1c1f26; border-color: #2c313d; }
 .further-reading .src {
-  display: inline-block;
+  margin-left: auto;
   font-family: var(--font-mono); font-size: .72em;
-  color: var(--muted); margin-left: .35em;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color .15s;
 }
+.further-reading a:hover {
+  background: var(--accent-soft);
+  color: var(--accent) !important;
+  padding-left: .9rem;
+}
+.further-reading a:hover .src { color: var(--accent); opacity: .85; }
+.further-reading a:hover::after {
+  transform: translate(2px, -2px);
+  opacity: 1;
+  color: var(--accent);
+}
+.dark .further-reading a:hover { background: rgba(244,160,74,0.10); }
 
 /* SVG figure wrapper */
 .figure {
@@ -762,6 +789,85 @@ body::before {
   .svg-anim .draw-path { stroke-dashoffset: 0; }
   .svg-anim .pop, .svg-anim .fade-up { opacity: 1; transform: none; }
 }
+
+/* ──────────────────────────────────────────────────────────────
+   Dark-mode SVG palette
+   Figures hard-code light-mode tints; remap them for dark mode so
+   text stays legible and box fills stay subtle on dark surfaces.
+   ────────────────────────────────────────────────────────────── */
+
+/* Light shape fills → dark tints (box backgrounds in figures) */
+.dark .svg-anim rect[fill="#fff"],
+.dark .svg-anim rect[fill="#ffffff"],
+.dark .svg-anim circle[fill="#fff"],
+.dark .svg-anim circle[fill="#ffffff"],
+.dark .svg-anim polygon[fill="#fff"],
+.dark .svg-anim polygon[fill="#ffffff"],
+.dark .svg-anim ellipse[fill="#fff"],
+.dark .svg-anim ellipse[fill="#ffffff"]                      { fill: #1c1f26; }
+.dark .svg-anim [fill="#f8fafc"]                             { fill: #14171c; }
+.dark .svg-anim [fill="#dbeafe"], .dark .svg-anim [fill="#e0e7ff"] { fill: #16243d; }
+.dark .svg-anim [fill="#ecfeff"], .dark .svg-anim [fill="#cffafe"] { fill: #0d2730; }
+.dark .svg-anim [fill="#dcfce7"], .dark .svg-anim [fill="#d1fae5"], .dark .svg-anim [fill="#f0fdf4"] { fill: #0e2419; }
+.dark .svg-anim [fill="#fef3c7"], .dark .svg-anim [fill="#fef0c7"], .dark .svg-anim [fill="#fde68a"] { fill: #2a1f08; }
+.dark .svg-anim [fill="#fff7ed"], .dark .svg-anim [fill="#fff1e0"], .dark .svg-anim [fill="#fed7aa"] { fill: #2a1d0a; }
+.dark .svg-anim [fill="#fee2e2"], .dark .svg-anim [fill="#fecaca"], .dark .svg-anim [fill="#fef2f2"] { fill: #2c0e10; }
+.dark .svg-anim [fill="#fce7f3"], .dark .svg-anim [fill="#fde7f3"]                   { fill: #2a0e1d; }
+.dark .svg-anim [fill="#fdf4ff"], .dark .svg-anim [fill="#f5d0fe"]                   { fill: #1f0e2a; }
+.dark .svg-anim [fill="#cbd5e1"]                              { fill: #404858; }
+
+/* Dark text/icon fills → bright tints (legible on dark surface) */
+.dark .svg-anim [fill="#1c140d"]                              { fill: #ede4da; }
+.dark .svg-anim [fill="#1e3a8a"], .dark .svg-anim [fill="#1e40af"],
+.dark .svg-anim [fill="#1d4ed8"]                              { fill: #93c5fd; }
+.dark .svg-anim [fill="#0f766e"]                              { fill: #5eead4; }
+.dark .svg-anim [fill="#047857"], .dark .svg-anim [fill="#065f46"],
+.dark .svg-anim [fill="#15803d"]                              { fill: #86efac; }
+.dark .svg-anim [fill="#0e7490"], .dark .svg-anim [fill="#155e75"]   { fill: #67e8f9; }
+.dark .svg-anim [fill="#92400e"], .dark .svg-anim [fill="#9a3412"],
+.dark .svg-anim [fill="#b45309"]                              { fill: #fcd34d; }
+.dark .svg-anim [fill="#9d174d"], .dark .svg-anim [fill="#be185d"]   { fill: #f9a8d4; }
+.dark .svg-anim [fill="#7e22ce"], .dark .svg-anim [fill="#5b21b6"]   { fill: #d8b4fe; }
+.dark .svg-anim [fill="#4338ca"], .dark .svg-anim [fill="#3730a3"],
+.dark .svg-anim [fill="#4f46e5"]                              { fill: #a5b4fc; }
+.dark .svg-anim [fill="#991b1b"], .dark .svg-anim [fill="#dc2626"]   { fill: #fca5a5; }
+.dark .svg-anim [fill="#64748b"], .dark .svg-anim [fill="#475569"],
+.dark .svg-anim [fill="#374151"], .dark .svg-anim [fill="#6b7280"]   { fill: #cbd5e1; }
+.dark .svg-anim [fill="#6b5946"]                              { fill: #c4b5a5; }
+.dark .svg-anim [fill="#0d9488"]                              { fill: #5eead4; }
+.dark .svg-anim [fill="#2563eb"]                              { fill: #60a5fa; }
+.dark .svg-anim [fill="#7c3aed"], .dark .svg-anim [fill="#a855f7"]   { fill: #c084fc; }
+.dark .svg-anim [fill="#0891b2"]                              { fill: #22d3ee; }
+.dark .svg-anim [fill="#059669"]                              { fill: #34d399; }
+.dark .svg-anim [fill="#d97706"], .dark .svg-anim [fill="#c2410c"],
+.dark .svg-anim [fill="#ea580c"], .dark .svg-anim [fill="#f59e0b"],
+.dark .svg-anim [fill="#ca8a04"], .dark .svg-anim [fill="#f97316"]   { fill: #fbbf24; }
+.dark .svg-anim [fill="#6366f1"]                              { fill: #a5b4fc; }
+.dark .svg-anim [fill="#3b82f6"]                              { fill: #60a5fa; }
+
+/* Strokes — borders and connectors. Brighten medium tones for legibility. */
+.dark .svg-anim [stroke="#0d9488"], .dark .svg-anim [stroke="#0f766e"]   { stroke: #5eead4; }
+.dark .svg-anim [stroke="#059669"], .dark .svg-anim [stroke="#15803d"]   { stroke: #34d399; }
+.dark .svg-anim [stroke="#0891b2"]                              { stroke: #22d3ee; }
+.dark .svg-anim [stroke="#0e7490"]                              { stroke: #67e8f9; }
+.dark .svg-anim [stroke="#2563eb"], .dark .svg-anim [stroke="#3b82f6"],
+.dark .svg-anim [stroke="#1d4ed8"]                              { stroke: #60a5fa; }
+.dark .svg-anim [stroke="#1e3a8a"], .dark .svg-anim [stroke="#1e40af"]   { stroke: #93c5fd; }
+.dark .svg-anim [stroke="#dc2626"], .dark .svg-anim [stroke="#e11d48"]   { stroke: #f87171; }
+.dark .svg-anim [stroke="#be185d"]                              { stroke: #f472b6; }
+.dark .svg-anim [stroke="#a855f7"], .dark .svg-anim [stroke="#7c3aed"],
+.dark .svg-anim [stroke="#5b21b6"]                              { stroke: #c084fc; }
+.dark .svg-anim [stroke="#6366f1"], .dark .svg-anim [stroke="#4f46e5"],
+.dark .svg-anim [stroke="#4338ca"]                              { stroke: #a5b4fc; }
+.dark .svg-anim [stroke="#d97706"], .dark .svg-anim [stroke="#c2410c"],
+.dark .svg-anim [stroke="#ea580c"], .dark .svg-anim [stroke="#f59e0b"],
+.dark .svg-anim [stroke="#f97316"], .dark .svg-anim [stroke="#ca8a04"],
+.dark .svg-anim [stroke="#9a3412"], .dark .svg-anim [stroke="#b45309"]   { stroke: #fbbf24; }
+.dark .svg-anim [stroke="#64748b"], .dark .svg-anim [stroke="#475569"],
+.dark .svg-anim [stroke="#94a3b8"]                              { stroke: #94a3b8; }
+.dark .svg-anim [stroke="#cbd5e1"], .dark .svg-anim [stroke="#dbc2b0"]   { stroke: #475569; }
+.dark .svg-anim [stroke="#1c140d"], .dark .svg-anim [stroke="#6b5946"]   { stroke: #94a3b8; }
+.dark .svg-anim [stroke="#fde68a"]                              { stroke: #fcd34d; }
 
 /* ──────────────────────────────────────────────────────────────
    Cards / surfaces (used by pages)

@@ -9,6 +9,7 @@ import ReaderShell from '@/components/ReaderShell';
 import ReadingSettings from '@/components/ReadingSettings';
 import ScrollProgress from '@/components/ScrollProgress';
 import TableOfContents from '@/components/TableOfContents';
+import FaviconEnhancer from '@/components/FaviconEnhancer';
 import { getCourse, getCourseIds, getChapter, getChapters } from '@/lib/courses';
 import { countWords } from '@/lib/readingTime';
 
@@ -61,6 +62,7 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
       />
       {/* Records reading start time on mount */}
       <ChapterTracker courseId={courseId} chapterId={chapterId} />
+      <FaviconEnhancer />
 
       <ReaderShell>
         <div className="max-w-[760px] mx-auto px-5 py-10">

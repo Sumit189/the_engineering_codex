@@ -66,8 +66,9 @@ export default function LandingPage() {
             </h1>
             <p className="font-serif text-lg text-[#554336] dark:text-[#8d93a3]
               max-w-xl leading-relaxed mb-10">
-              Structured, deep-dive curricula for engineers who want to understand
-              and operate production AI systems — not just use them.
+              Structured, deep-dive curricula - starting with AI, infrastructure,
+              and security, with more domains on the way — for engineers who want
+              to understand and operate production systems, not just use them.
             </p>
           </div>
           <div className="mb-16" />

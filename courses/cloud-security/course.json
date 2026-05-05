@@ -8,5 +8,6 @@
   "chapters": 9,
   "days": 7,
   "level": "Intermediate to Advanced",
-  "tags": ["IAM", "STS", "VPC", "Kubernetes", "Service Mesh", "KMS", "SLSA", "Sigstore", "Zero Trust", "CloudTrail", "Detection", "Compliance"]
+  "tags": ["IAM", "STS", "VPC", "Kubernetes", "Service Mesh", "KMS", "SLSA", "Sigstore", "Zero Trust", "CloudTrail", "Detection", "Compliance"],
+  "coverImage": "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=1200"
 }

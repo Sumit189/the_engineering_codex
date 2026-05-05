@@ -65,7 +65,7 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
       <FaviconEnhancer />
 
       <ReaderShell>
-        <div className="max-w-[760px] mx-auto px-5 py-10"
+        <div className="max-w-[760px] mx-auto xl:ml-12 xl:mr-auto 2xl:ml-20 px-5 py-10"
           data-course-title={course.title}
           data-chapter-title={chapter.title}>
 

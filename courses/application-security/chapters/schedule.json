@@ -1,0 +1,44 @@
+[
+  {
+    "day": 1,
+    "title": "Foundations & Threat Modeling",
+    "color": "#0d9488",
+    "chapterIds": ["security-foundations", "threat-modeling"]
+  },
+  {
+    "day": 2,
+    "title": "Cryptography & Identity",
+    "color": "#6366f1",
+    "chapterIds": ["cryptography", "authn-authz"]
+  },
+  {
+    "day": 3,
+    "title": "OWASP Top 10 — Part I",
+    "color": "#f59e0b",
+    "chapterIds": ["owasp-top-10-part-1"]
+  },
+  {
+    "day": 4,
+    "title": "OWASP Top 10 — Part II",
+    "color": "#f97316",
+    "chapterIds": ["owasp-top-10-part-2"]
+  },
+  {
+    "day": 5,
+    "title": "Network & Transport Security",
+    "color": "#0ea5e9",
+    "chapterIds": ["network-security"]
+  },
+  {
+    "day": 6,
+    "title": "Secure SDLC & Supply Chain",
+    "color": "#a855f7",
+    "chapterIds": ["secure-sdlc"]
+  },
+  {
+    "day": 7,
+    "title": "Cloud, Containers & Incident Response",
+    "color": "#e11d48",
+    "chapterIds": ["cloud-and-incident-response"]
+  }
+]

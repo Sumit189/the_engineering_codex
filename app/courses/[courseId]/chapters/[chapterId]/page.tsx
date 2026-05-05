@@ -7,6 +7,8 @@ import ChapterTracker from '@/components/ChapterTracker';
 import ReadTime from '@/components/ReadTime';
 import ReaderShell from '@/components/ReaderShell';
 import ReadingSettings from '@/components/ReadingSettings';
+import ScrollProgress from '@/components/ScrollProgress';
+import TableOfContents from '@/components/TableOfContents';
 import { getCourse, getCourseIds, getChapter, getChapters } from '@/lib/courses';
 import { countWords } from '@/lib/readingTime';
 
@@ -47,8 +49,10 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
   return (
     <>
       <Header courseTitle={course.title} courseId={courseId} />
+      <ScrollProgress targetSelector=".chapter-content" />
       <Sidebar courseId={courseId} chapters={chapters} currentChapter={chapterId} />
       <ReadingSettings />
+      <TableOfContents html={chapter.content} />
       <ChapterNavBar
         courseId={courseId}
         prev={chapter.prev}

@@ -1,0 +1,12 @@
+{
+  "id": "application-security",
+  "title": "Application Security Engineering",
+  "subtitle": "7-Day Defensive Security",
+  "description": "Threat modeling, the CIA triad, OWASP Top 10, modern crypto, authn/authz, network and cloud hardening, and incident response — the security mental models every engineer should own.",
+  "color": "#0d9488",
+  "duration": "~24 hours",
+  "chapters": 9,
+  "days": 7,
+  "level": "Beginner to Advanced",
+  "tags": ["OWASP", "CIA Triad", "AuthN/AuthZ", "Cryptography", "TLS", "Threat Modeling", "Cloud Security"]
+}

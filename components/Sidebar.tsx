@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { useProgress } from './ProgressProvider';
+import { useMemo } from 'react';
+import { useProgress, chapterKey } from './ProgressProvider';
+import { countWords, formatDuration } from '@/lib/readingTime';
 import type { ChapterData } from '@/types';
 
 interface Props {
@@ -10,42 +12,72 @@ interface Props {
 }
 
 export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
-  const { isCompleted, bookmarks, removeBookmark } = useProgress();
+  const {
+    completed, isCompleted, bookmarks, removeBookmark,
+    sidebarOpen, estimateMinutes,
+  } = useProgress();
 
   const done  = chapters.filter(c => isCompleted(courseId, c.id)).length;
   const total = chapters.length;
   const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
-  const circ  = 113.1;
+  const circ  = 119.4;
   const offset = circ - (circ * pct / 100);
 
   const courseBookmarks = bookmarks.filter(b => b.courseId === courseId);
 
+  // Remaining estimated time for incomplete chapters
+  const remainingMins = useMemo(() => {
+    const words = chapters
+      .filter(c => !completed.has(chapterKey(courseId, c.id)))
+      .reduce((sum, c) => sum + countWords(c.content), 0);
+    return estimateMinutes(words);
+  }, [chapters, completed, courseId, estimateMinutes]);
+
   return (
-    <aside className="fixed top-14 left-0 w-64 h-[calc(100vh-56px)] z-40
-      bg-[#fafaf9] dark:bg-[#13100d]
-      border-r border-[#f2dfd3] dark:border-[#221e1a]
-      flex flex-col overflow-hidden">
+    <aside
+      className={`fixed top-14 left-0 w-64 h-[calc(100vh-56px)] z-40
+        bg-gradient-to-b from-[#fdfaf8] to-[#f9f3ef]
+        dark:from-[#141108] dark:to-[#100e0a]
+        border-r border-[#ecddd5] dark:border-[#1e1a16]
+        flex flex-col overflow-hidden
+        transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+    >
 
       {/* Progress header */}
-      <div className="p-4 border-b border-[#f2dfd3] dark:border-[#221e1a]">
+      <div className="p-4 pb-3 border-b border-[#ecddd5] dark:border-[#1e1a16]">
         <Link href={`/courses/${courseId}`}
-          className="flex items-center gap-3 mb-3 group">
-          <div className="relative w-11 h-11 shrink-0 flex items-center justify-center">
-            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 44 44">
-              <circle cx="22" cy="22" r="18" fill="none" stroke="#f2dfd3" strokeWidth="3.5"
+          className="flex items-center gap-3 mb-4 group">
+          <div className="relative w-12 h-12 shrink-0 flex items-center justify-center">
+            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="19" fill="none" stroke="#f0e2d8" strokeWidth="3.5"
                 className="dark:stroke-[#221e1a]"/>
-              <circle cx="22" cy="22" r="18" fill="none" stroke="#8d4b00" strokeWidth="3.5"
-                strokeDasharray={circ} strokeDashoffset={offset} strokeLinecap="round"
-                className="transition-all duration-700 dark:stroke-[#d97706]"/>
+              <circle cx="24" cy="24" r="19" fill="none" strokeWidth="3.5"
+                stroke="url(#progressGrad)"
+                strokeDasharray={circ} strokeDashoffset={offset}
+                strokeLinecap="round"
+                className="transition-all duration-700"/>
+              <defs>
+                <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#8d4b00"/>
+                  <stop offset="100%" stopColor="#d97706"/>
+                </linearGradient>
+              </defs>
             </svg>
             <span className="text-[10px] font-black text-[#8d4b00] dark:text-[#e8903a]">{pct}%</span>
           </div>
           <div className="min-w-0">
-            <span className="text-[11px] font-black text-[#231a13] dark:text-[#ede4da]
-              uppercase tracking-wide group-hover:text-[#8d4b00] transition-colors block">
+            <span className="text-[11.5px] font-black text-[#231a13] dark:text-[#ede4da]
+              uppercase tracking-wide group-hover:text-[#8d4b00] dark:group-hover:text-[#e8903a]
+              transition-colors block">
               Course Overview
             </span>
-            <span className="text-[10px] text-[#887364]">{done}/{total} Chapters</span>
+            <span className="text-[10.5px] text-[#a08878] dark:text-[#5c4e44]">
+              {done}/{total} chapters
+              {done < total && (
+                <> · {formatDuration(remainingMins)} left</>
+              )}
+            </span>
           </div>
         </Link>
 
@@ -56,10 +88,10 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
             const allDone  = dayChaps.length > 0 && dayChaps.every(c => isCompleted(courseId, c.id));
             return (
               <Link key={day} href={`/courses/${courseId}/chapters/${dayChaps[0]?.id ?? ''}`}
-                className={`text-[10px] font-bold py-1 rounded text-center transition-colors
+                className={`text-[9.5px] font-bold py-1 rounded-lg text-center transition-all
                   ${allDone
-                    ? 'bg-[#8d4b00] text-white dark:bg-[#d97706] dark:text-[#231a13]'
-                    : 'bg-[#f2dfd3] text-[#887364] dark:bg-[#1c1813] hover:bg-[#e9d7cb] dark:hover:bg-[#221e1a]'
+                    ? 'bg-gradient-to-br from-[#8d4b00] to-[#c97000] text-white shadow-sm'
+                    : 'bg-[#f0e4db] dark:bg-[#1c1813] text-[#a08878] dark:text-[#5c4e44] hover:bg-[#e8d4c8] dark:hover:bg-[#221e1a]'
                   }`}>
                 D{day}
               </Link>
@@ -70,30 +102,31 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
 
       {/* Chapter list */}
       <div className="flex-1 overflow-y-auto py-2">
-        <div className="px-4 py-1 text-[10px] font-black text-[#887364] uppercase tracking-widest">
+        <div className="px-4 pt-1 pb-1.5 text-[9.5px] font-black text-[#b0998a] dark:text-[#4a3e35]
+          uppercase tracking-[0.13em]">
           Chapters
         </div>
-        <ul className="px-2 space-y-0.5">
+        <ul className="px-2 space-y-px">
           {chapters.map((ch, idx) => {
-            const done    = isCompleted(courseId, ch.id);
-            const active  = ch.id === currentChapter;
+            const isChDone = isCompleted(courseId, ch.id);
+            const active   = ch.id === currentChapter;
             return (
               <li key={ch.id}>
                 <Link href={`/courses/${courseId}/chapters/${ch.id}`}
-                  className={`flex items-center gap-2 px-2 py-1.5 rounded-lg text-[13px] transition-colors
+                  className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-[13px] transition-all
                     ${active
-                      ? 'bg-[#fff1e9] dark:bg-[#2a1000] text-[#8d4b00] dark:text-[#e8903a] font-bold border-r-2 border-[#8d4b00] dark:border-[#e8903a]'
-                      : done
+                      ? 'bg-gradient-to-r from-[#fff3e8] to-[#fff8f3] dark:from-[#2a1200] dark:to-[#220f00] text-[#8d4b00] dark:text-[#e8903a] font-bold border-l-[3px] border-[#d97706] dark:border-[#e8903a] pl-[7px]'
+                      : isChDone
                         ? 'text-[#059669] dark:text-[#4ade80] hover:bg-[#f0fdf4] dark:hover:bg-[#0a1f14]'
-                        : 'text-[#887364] hover:bg-[#f2dfd3] dark:hover:bg-[#1c1813] hover:text-[#231a13] dark:hover:text-[#f5f5f4]'
+                        : 'text-[#887364] hover:bg-[#f5ede7] dark:hover:bg-[#1c1813] hover:text-[#3c2c22] dark:hover:text-[#d9cfc4]'
                     }`}>
                   <span className="material-symbols-outlined shrink-0"
                     style={{ fontSize: 15,
-                      color: active ? '#8d4b00' : done ? '#059669' : '#dbc2b0' }}>
-                    {done ? 'check_circle' : active ? 'menu_book' : 'radio_button_unchecked'}
+                      color: active ? '#d97706' : isChDone ? '#059669' : '#d4bfb0' }}>
+                    {isChDone ? 'check_circle' : active ? 'menu_book' : 'radio_button_unchecked'}
                   </span>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[10px] opacity-50 uppercase tracking-wider">
+                    <span className="text-[9.5px] opacity-50 uppercase tracking-wider font-semibold">
                       {idx + 1} · {ch.dayLabel}
                     </span>
                     <span className="truncate text-[12px]">{ch.shortTitle}</span>
@@ -107,22 +140,24 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
 
       {/* Bookmarks */}
       {courseBookmarks.length > 0 && (
-        <div className="border-t border-[#f2dfd3] dark:border-[#221e1a] p-2">
-          <div className="px-2 py-1 text-[10px] font-black text-[#887364] uppercase tracking-widest">
+        <div className="border-t border-[#ecddd5] dark:border-[#1e1a16] p-2">
+          <div className="px-2 py-1 text-[9.5px] font-black text-[#b0998a] dark:text-[#4a3e35]
+            uppercase tracking-[0.13em]">
             Bookmarks
           </div>
-          <ul className="space-y-0.5">
+          <ul className="space-y-px">
             {courseBookmarks.map(bm => (
               <li key={bm.chapterId}
-                className="flex items-center gap-2 px-2 py-1.5 rounded-lg
-                  hover:bg-[#f2dfd3] dark:hover:bg-[#1c1813] group">
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl
+                  hover:bg-[#f5ede7] dark:hover:bg-[#1c1813] group transition-colors">
                 <Link href={`/courses/${courseId}/chapters/${bm.chapterId}`}
                   className="flex items-center gap-2 flex-1 min-w-0">
                   <span className="material-symbols-outlined text-[#d97706]" style={{ fontSize: 13 }}>bookmark</span>
                   <span className="text-[12px] text-[#554336] dark:text-[#a89888] truncate">{bm.title}</span>
                 </Link>
                 <button onClick={() => removeBookmark(courseId, bm.chapterId)}
-                  className="opacity-0 group-hover:opacity-100 text-[#887364] hover:text-red-500 transition-all">
+                  className="opacity-0 group-hover:opacity-100 text-[#b0998a] hover:text-red-500
+                    transition-all rounded-full w-5 h-5 flex items-center justify-center">
                   <span className="material-symbols-outlined" style={{ fontSize: 13 }}>close</span>
                 </button>
               </li>

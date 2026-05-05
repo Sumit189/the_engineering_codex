@@ -11,52 +11,61 @@ interface Props {
 
 export default function ChapterNavBar({ courseId, prev, next, chapterTitle }: Props) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 lg:left-64 h-[68px] z-40
-      bg-[rgba(255,248,245,0.75)] dark:bg-[rgba(17,14,11,0.82)]
+    <nav className="fixed bottom-0 left-0 right-0 lg:left-64 h-[72px] z-40
+      bg-[rgba(253,250,248,0.82)] dark:bg-[rgba(14,11,8,0.88)]
       backdrop-blur-2xl saturate-150
-      border-t border-[rgba(219,194,176,0.45)] dark:border-[rgba(34,30,26,0.7)]
+      border-t border-[rgba(220,196,176,0.5)] dark:border-[rgba(30,26,22,0.8)]
       flex items-center justify-between px-5 gap-4">
 
       {prev ? (
         <Link href={`/courses/${courseId}/chapters/${prev.id}`}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl
-            bg-[rgba(255,255,255,0.55)] dark:bg-[rgba(41,37,36,0.55)]
-            border border-[rgba(219,194,176,0.55)] dark:border-[rgba(60,44,34,0.6)]
-            text-[13px] font-bold text-[#554336] dark:text-[#ede4da]
-            hover:bg-[rgba(247,229,217,0.85)] dark:hover:bg-[rgba(60,44,34,0.8)]
-            hover:border-[#8d4b00] hover:text-[#231a13] dark:hover:text-[#f5f5f4]
-            transition-all backdrop-blur-sm whitespace-nowrap shrink-0">
-          <span className="material-symbols-outlined" style={{ fontSize: 15 }}>arrow_back</span>
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl
+            bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(35,30,25,0.6)]
+            border border-[rgba(220,196,176,0.6)] dark:border-[rgba(50,40,32,0.7)]
+            text-[12.5px] font-bold text-[#554336] dark:text-[#c9bfb4]
+            hover:bg-[rgba(247,232,218,0.9)] dark:hover:bg-[rgba(50,40,32,0.9)]
+            hover:border-[rgba(141,75,0,.4)] hover:text-[#231a13] dark:hover:text-[#f0e6db]
+            transition-all backdrop-blur-sm whitespace-nowrap shrink-0 group">
+          <span className="material-symbols-outlined transition-transform group-hover:-translate-x-0.5"
+            style={{ fontSize: 14 }}>arrow_back</span>
           <span className="hidden sm:inline truncate max-w-[140px]">{prev.title}</span>
         </Link>
       ) : (
         <div />
       )}
 
-      <span className="text-[12px] font-semibold text-[#887364] truncate text-center min-w-0 hidden sm:block">
+      <span className="text-[11.5px] font-semibold text-[#a08878] dark:text-[#5c4e44]
+        truncate text-center min-w-0 hidden sm:block">
         {chapterTitle}
       </span>
 
       {next ? (
         <Link href={`/courses/${courseId}/chapters/${next.id}`}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl
-            bg-[rgba(141,75,0,0.88)] dark:bg-[rgba(217,119,6,0.88)]
-            text-[13px] font-bold text-white dark:text-[#231a13]
-            hover:bg-[rgba(110,57,0,0.95)] dark:hover:bg-[rgba(180,100,6,0.95)]
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl
+            bg-gradient-to-br from-[#8d4b00] to-[#c97000]
+            dark:from-[#d97706] dark:to-[#b45309]
+            text-[12.5px] font-bold text-white dark:text-[#1a1209]
+            hover:from-[#7a4100] hover:to-[#b36200]
+            dark:hover:from-[#c97000] dark:hover:to-[#a04500]
             border border-transparent
-            transition-all backdrop-blur-sm whitespace-nowrap shrink-0">
+            shadow-[0_2px_12px_rgba(141,75,0,.35)] dark:shadow-[0_2px_12px_rgba(217,119,6,.3)]
+            transition-all backdrop-blur-sm whitespace-nowrap shrink-0 group">
           <span className="hidden sm:inline truncate max-w-[140px]">{next.title}</span>
-          <span className="material-symbols-outlined" style={{ fontSize: 15 }}>arrow_forward</span>
+          <span className="material-symbols-outlined transition-transform group-hover:translate-x-0.5"
+            style={{ fontSize: 14 }}>arrow_forward</span>
         </Link>
       ) : (
         <Link href={`/courses/${courseId}`}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl
-            bg-[rgba(141,75,0,0.88)] dark:bg-[rgba(217,119,6,0.88)]
-            text-[13px] font-bold text-white dark:text-[#231a13]
-            hover:bg-[rgba(110,57,0,0.95)]
-            border border-transparent transition-all backdrop-blur-sm whitespace-nowrap shrink-0">
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl
+            bg-gradient-to-br from-[#8d4b00] to-[#c97000]
+            dark:from-[#d97706] dark:to-[#b45309]
+            text-[12.5px] font-bold text-white dark:text-[#1a1209]
+            hover:from-[#7a4100] hover:to-[#b36200]
+            border border-transparent
+            shadow-[0_2px_12px_rgba(141,75,0,.35)]
+            transition-all backdrop-blur-sm whitespace-nowrap shrink-0">
           Back to course
-          <span className="material-symbols-outlined" style={{ fontSize: 15 }}>home</span>
+          <span className="material-symbols-outlined" style={{ fontSize: 14 }}>home</span>
         </Link>
       )}
     </nav>

@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useProgress } from './ProgressProvider';
 
 interface Props {
   courseTitle?: string;
@@ -9,8 +10,9 @@ interface Props {
 }
 
 export default function Header({ courseTitle, courseId, progress }: Props) {
-  const [dark, setDark] = useState(false);
+  const [dark,    setDark]    = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { sidebarOpen, toggleSidebar } = useProgress();
 
   useEffect(() => {
     setMounted(true);
@@ -33,10 +35,24 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
       bg-[rgba(255,248,245,0.72)] dark:bg-[rgba(17,14,11,0.80)]
       backdrop-blur-xl saturate-150
       border-b border-[rgba(219,194,176,0.45)] dark:border-[rgba(60,44,34,0.45)]
-      flex items-center justify-between px-5 gap-4">
+      flex items-center justify-between px-3 gap-3">
 
-      {/* Left breadcrumb */}
-      <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+      {/* Left — sidebar toggle + breadcrumb */}
+      <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+        {/* Sidebar toggle (only inside a course) */}
+        {courseId && mounted && (
+          <button
+            onClick={toggleSidebar}
+            aria-label={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
+            className="w-8 h-8 flex items-center justify-center rounded-full shrink-0
+              hover:bg-[#f2dfd3] dark:hover:bg-[#1c1813] transition-colors">
+            <span className="material-symbols-outlined text-[#554336] dark:text-[#a89888]"
+              style={{ fontSize: 20 }}>
+              {sidebarOpen ? 'menu_open' : 'menu'}
+            </span>
+          </button>
+        )}
+
         <Link href="/"
           className="text-sm font-black tracking-tight text-[#231a13] dark:text-white
             hover:text-[#8d4b00] dark:hover:text-[#fbbf24] transition-colors whitespace-nowrap shrink-0">
@@ -65,7 +81,7 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="relative z-10 w-8 h-8 flex items-center justify-center rounded-full
+            className="w-8 h-8 flex items-center justify-center rounded-full
               hover:bg-[#f2dfd3] dark:hover:bg-[#1c1813] transition-colors cursor-pointer">
             <span className="material-symbols-outlined text-[#554336] dark:text-[#a89888]"
               style={{ fontSize: 19 }}>
@@ -75,7 +91,7 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
         )}
       </div>
 
-      {/* Progress bar */}
+      {/* Reading progress bar */}
       {progress !== undefined && (
         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[rgba(242,223,209,.35)]">
           <div

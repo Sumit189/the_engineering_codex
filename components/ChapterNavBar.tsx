@@ -22,9 +22,9 @@ export default function ChapterNavBar({ courseId, prev, next, chapterTitle }: Pr
           className="flex items-center gap-2 px-4 py-2.5 rounded-2xl
             bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(35,30,25,0.6)]
             border border-[rgba(220,196,176,0.6)] dark:border-[rgba(50,40,32,0.7)]
-            text-[12.5px] font-bold text-[#554336] dark:text-[#c9bfb4]
+            text-[12.5px] font-bold text-[#554336] dark:text-[#c2c6d2]
             hover:bg-[rgba(247,232,218,0.9)] dark:hover:bg-[rgba(50,40,32,0.9)]
-            hover:border-[rgba(141,75,0,.4)] hover:text-[#231a13] dark:hover:text-[#f0e6db]
+            hover:border-[rgba(141,75,0,.4)] hover:text-[#231a13] dark:hover:text-[#e6e8ee]
             transition-all backdrop-blur-sm whitespace-nowrap shrink-0 group">
           <span className="material-symbols-outlined transition-transform group-hover:-translate-x-0.5"
             style={{ fontSize: 14 }}>arrow_back</span>
@@ -34,7 +34,7 @@ export default function ChapterNavBar({ courseId, prev, next, chapterTitle }: Pr
         <div />
       )}
 
-      <span className="text-[11.5px] font-semibold text-[#a08878] dark:text-[#5c4e44]
+      <span className="text-[11.5px] font-semibold text-[#a08878] dark:text-[#5d6373]
         truncate text-center min-w-0 hidden sm:block">
         {chapterTitle}
       </span>
@@ -44,7 +44,7 @@ export default function ChapterNavBar({ courseId, prev, next, chapterTitle }: Pr
           className="flex items-center gap-2 px-4 py-2.5 rounded-2xl
             bg-gradient-to-br from-[#8d4b00] to-[#c97000]
             dark:from-[#d97706] dark:to-[#b45309]
-            text-[12.5px] font-bold text-white dark:text-[#1a1209]
+            text-[12.5px] font-bold text-white dark:text-[#0f1115]
             hover:from-[#7a4100] hover:to-[#b36200]
             dark:hover:from-[#c97000] dark:hover:to-[#a04500]
             border border-transparent
@@ -59,7 +59,7 @@ export default function ChapterNavBar({ courseId, prev, next, chapterTitle }: Pr
           className="flex items-center gap-2 px-4 py-2.5 rounded-2xl
             bg-gradient-to-br from-[#8d4b00] to-[#c97000]
             dark:from-[#d97706] dark:to-[#b45309]
-            text-[12.5px] font-bold text-white dark:text-[#1a1209]
+            text-[12.5px] font-bold text-white dark:text-[#0f1115]
             hover:from-[#7a4100] hover:to-[#b36200]
             border border-transparent
             shadow-[0_2px_12px_rgba(141,75,0,.35)]

@@ -101,7 +101,7 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
 
           {/* Title */}
           <h1 className="text-[2.1rem] md:text-[2.6rem] font-black
-            text-[#1a1209] dark:text-[#f5ede4]
+            text-[#1a1209] dark:text-[#e6e8ee]
             leading-[1.1] tracking-[-0.025em] mb-4">
             {chapter.title}
           </h1>
@@ -109,46 +109,46 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
           {/* Meta strip — personalized read time */}
           <div className="flex items-center mb-7 text-[12.5px] font-semibold text-[#887364]">
             <span className="flex items-center gap-1.5 pr-4">
-              <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+              <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                 style={{ fontSize: 13 }}>schedule</span>
               <ReadTime wordCount={wordCount} />
             </span>
-            <span className="h-3.5 w-px bg-[#dbc2b0] dark:bg-[#2f2923] mr-4" />
+            <span className="h-3.5 w-px bg-[#dbc2b0] dark:bg-[#363c48] mr-4" />
             <span className="flex items-center gap-1.5" style={{ color: dc.color }}>
               <span className="material-symbols-outlined" style={{ fontSize: 13, color: dc.color }}>
                 signal_cellular_alt
               </span>
               {dc.label}
             </span>
-            <span className="h-3.5 w-px bg-[#dbc2b0] dark:bg-[#2f2923] mx-4" />
-            <span className="text-[#b0998a] dark:text-[#5c4e44]">{wordCount.toLocaleString()} words</span>
+            <span className="h-3.5 w-px bg-[#dbc2b0] dark:bg-[#363c48] mx-4" />
+            <span className="text-[#b0998a] dark:text-[#5d6373]">{wordCount.toLocaleString()} words</span>
           </div>
 
           {/* Description — pull quote */}
           <blockquote className="font-serif text-[18px] italic leading-[1.82]
-            text-[#554336] dark:text-[#a89888] mb-9
-            pl-5 border-l-[3px] border-[#d97706] dark:border-[#e8903a]">
+            text-[#554336] dark:text-[#8d93a3] mb-9
+            pl-5 border-l-[3px] border-[#d97706] dark:border-[#fbbf24]">
             {chapter.desc}
           </blockquote>
 
           {/* What you'll learn */}
           {h2s.length > 0 && (
             <div className="relative bg-gradient-to-br from-[#fff8f3] via-[#fff1e6] to-[#fde8d4]
-              dark:from-[#1a0f06] dark:via-[#1c1108] dark:to-[#201407]
-              border border-[#e8d4be] dark:border-[#2a1e10]
+              dark:from-[#161920] dark:via-[#1d212a] dark:to-[#13161c]
+              border border-[#e8d4be] dark:border-[#363c48]
               rounded-[20px] p-6 mb-9
               shadow-[inset_0_1px_0_rgba(255,255,255,.6)] dark:shadow-none">
-              <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#8d4b00] dark:text-[#e8903a] mb-5">
+              <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#8d4b00] dark:text-[#fbbf24] mb-5">
                 What you will learn
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6">
                 {h2s.map((h, i) => (
                   <div key={h} className="flex items-start gap-3">
                     <span className="text-[10px] font-black tabular-nums shrink-0 mt-[3px]
-                      text-[#d97706] dark:text-[#e8903a] opacity-60 w-4 text-right leading-none">
+                      text-[#d97706] dark:text-[#fbbf24] opacity-60 w-4 text-right leading-none">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className="text-[13px] text-[#4a3628] dark:text-[#d9cfc4] leading-snug">
+                    <span className="text-[13px] text-[#4a3628] dark:text-[#c2c6d2] leading-snug">
                       {h}
                     </span>
                   </div>
@@ -168,8 +168,8 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
           <div className="chapter-content mt-8" dangerouslySetInnerHTML={{ __html: chapter.content }} />
 
           {/* Completion */}
-          <div className="mt-12 pt-8 border-t border-[#eedad0] dark:border-[#221e1a]">
-            <p className="text-[10px] font-black text-[#b5a898] dark:text-[#4a3e35]
+          <div className="mt-12 pt-8 border-t border-[#eedad0] dark:border-[#2e3138]">
+            <p className="text-[10px] font-black text-[#b5a898] dark:text-[#5d6373]
               uppercase tracking-[0.14em] mb-3">
               Finished reading?
             </p>

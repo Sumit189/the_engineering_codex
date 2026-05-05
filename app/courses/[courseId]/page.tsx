@@ -43,18 +43,18 @@ export default function CoursePage({ params: { courseId } }: Props) {
             <p className="text-[11px] font-black text-[#8d4b00] uppercase tracking-widest mb-1">
               {course.subtitle}
             </p>
-            <h1 className="text-3xl font-black text-[#231a13] dark:text-[#ede4da] tracking-tight mb-2">
+            <h1 className="text-3xl font-black text-[#231a13] dark:text-[#e6e8ee] tracking-tight mb-2">
               {course.title}
             </h1>
-            <p className="font-serif text-base text-[#554336] dark:text-[#a89888] max-w-xl leading-relaxed mb-4">
+            <p className="font-serif text-base text-[#554336] dark:text-[#8d93a3] max-w-xl leading-relaxed mb-4">
               {course.description}
             </p>
             <div className="flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
-                border border-[#dbc2b0] dark:border-[#2f2923]
-                bg-white dark:bg-[#1c1813]
-                text-[12px] font-semibold text-[#554336] dark:text-[#a89888]">
-                <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                border border-[#dbc2b0] dark:border-[#363c48]
+                bg-white dark:bg-[#1a1c22]
+                text-[12px] font-semibold text-[#554336] dark:text-[#8d93a3]">
+                <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                   style={{ fontSize: 12 }}>schedule</span>
                 <ReadTime wordCount={totalWords} />
               </span>
@@ -64,10 +64,10 @@ export default function CoursePage({ params: { courseId } }: Props) {
               ].map(({ icon, label }) => (
                 <span key={label}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
-                    border border-[#dbc2b0] dark:border-[#2f2923]
-                    bg-white dark:bg-[#1c1813]
-                    text-[12px] font-semibold text-[#554336] dark:text-[#a89888]">
-                  <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                    border border-[#dbc2b0] dark:border-[#363c48]
+                    bg-white dark:bg-[#1a1c22]
+                    text-[12px] font-semibold text-[#554336] dark:text-[#8d93a3]">
+                  <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#fbbf24]"
                     style={{ fontSize: 12 }}>{icon}</span>
                   {label}
                 </span>
@@ -87,8 +87,8 @@ export default function CoursePage({ params: { courseId } }: Props) {
 
               return (
                 <Link key={day.day} href={`/courses/${courseId}/chapters/${dayChaps[0].id}`}
-                  className="group relative bg-white dark:bg-[#110e0b]
-                    border border-[#e7e5e4] dark:border-[#221e1a] rounded-2xl overflow-hidden
+                  className="group relative bg-white dark:bg-[#0f1115]
+                    border border-[#e7e5e4] dark:border-[#2e3138] rounded-2xl overflow-hidden
                     hover:shadow-[0_6px_20px_rgba(141,75,0,.1)] hover:-translate-y-0.5
                     transition-all duration-150 block">
 
@@ -99,12 +99,12 @@ export default function CoursePage({ params: { courseId } }: Props) {
                       style={{ color: day.color }}>
                       Day {day.day}
                     </p>
-                    <h3 className="text-[15px] font-bold text-[#231a13] dark:text-[#ede4da] mb-3 leading-snug">
+                    <h3 className="text-[15px] font-bold text-[#231a13] dark:text-[#e6e8ee] mb-3 leading-snug">
                       {day.title}
                     </h3>
                     <div className="space-y-1.5 mb-4">
                       {dayChaps.map(ch => (
-                        <div key={ch.id} className="flex items-center gap-2 text-[13px] text-[#554336] dark:text-[#a89888]">
+                        <div key={ch.id} className="flex items-center gap-2 text-[13px] text-[#554336] dark:text-[#8d93a3]">
                           <span className="material-symbols-outlined text-[#dbc2b0]" style={{ fontSize: 13 }}>
                             radio_button_unchecked
                           </span>
@@ -112,7 +112,7 @@ export default function CoursePage({ params: { courseId } }: Props) {
                         </div>
                       ))}
                     </div>
-                    <div className="flex gap-3 pt-3 border-t border-[#f2dfd3] dark:border-[#2f2923]
+                    <div className="flex gap-3 pt-3 border-t border-[#f2dfd3] dark:border-[#363c48]
                       text-[11px] font-semibold text-[#887364]">
                       <span className="inline-flex items-center gap-1">
                         <span className="material-symbols-outlined" style={{ fontSize: 11 }}>schedule</span>

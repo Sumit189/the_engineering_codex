@@ -39,8 +39,8 @@ export default function ChapterActions({
         className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-[12.5px] font-semibold
           cursor-pointer transition-all
           ${bookmarked
-            ? 'bg-[#fffbeb] border-[#fcd34d] text-[#92400e] dark:bg-[#231600] dark:border-[#4a2c00] dark:text-[#e8903a] shadow-sm'
-            : 'bg-white dark:bg-[#1c1813] border-[#dbc2b0] dark:border-[#2f2923] text-[#554336] dark:text-[#a89888] hover:border-[#c97000] hover:bg-[#fff8ee] dark:hover:bg-[#221e1a] hover:text-[#8d4b00]'
+            ? 'bg-[#fffbeb] border-[#fcd34d] text-[#92400e] dark:bg-[#241a08] dark:border-[#4a3a08] dark:text-[#fbbf24] shadow-sm'
+            : 'bg-white dark:bg-[#1a1c22] border-[#dbc2b0] dark:border-[#363c48] text-[#554336] dark:text-[#8d93a3] hover:border-[#c97000] hover:bg-[#fff8ee] dark:hover:bg-[#1d212a] hover:text-[#8d4b00]'
           }`}>
         <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
           {bookmarked ? 'bookmark' : 'bookmark_border'}
@@ -54,7 +54,7 @@ export default function ChapterActions({
             cursor-pointer transition-all ${burst ? 'scale-105' : 'scale-100'}
             ${done
               ? 'bg-[#f0fdf4] border-[#6ee7b7] text-[#166534] dark:bg-[#052e16] dark:border-[#15803d] dark:text-[#4ade80] shadow-sm'
-              : 'bg-white dark:bg-[#1c1813] border-[#dbc2b0] dark:border-[#2f2923] text-[#554336] dark:text-[#a89888] hover:border-[#c97000] hover:bg-[#fff8ee] dark:hover:bg-[#221e1a] hover:text-[#8d4b00]'
+              : 'bg-white dark:bg-[#1a1c22] border-[#dbc2b0] dark:border-[#363c48] text-[#554336] dark:text-[#8d93a3] hover:border-[#c97000] hover:bg-[#fff8ee] dark:hover:bg-[#1d212a] hover:text-[#8d4b00]'
             }`}>
           <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
             {done ? 'check_circle' : 'task_alt'}

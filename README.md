@@ -82,9 +82,8 @@ the_engineering_codex/
 │           └── [day]/
 │               └── chapter.json  # Chapter content (HTML + metadata)
 ├── public/
-│   └── covers/                 # Cover images (served at /covers/...)
-│       ├── courses/            # Course-level hero images
-│       └── [course-id]/        # Per-chapter cover images
+│   └── covers/                 # Per-chapter cover images (served at /covers/...)
+│       └── [course-id]/        # One folder per course
 ├── lib/
 │   └── courses.ts              # Data access functions
 └── types/
@@ -109,44 +108,45 @@ Chapter content is HTML stored in the `content` field of `chapter.json`. Use sem
 
 ## Cover Images
 
-Every chapter and every course has a hero image displayed at the top of the page. Images live in `public/covers/` and are referenced by absolute URL path in the JSON (Next.js serves `public/` at the URL root).
+Every chapter has a hero image displayed at the top of its page. Images live in `public/covers/[course-slug]/` and are referenced by absolute URL path in the chapter JSON (Next.js serves `public/` at the URL root).
+
+> **No course-level cover images.** Course cards on the landing page render with a colored top stripe (driven by the `color` field in `course.json`). Don't add `coverImage` to `course.json` — the field doesn't exist on the `CourseData` type and won't render.
 
 ### Folder Convention
 
 ```
 public/covers/
-├── courses/
-│   ├── llm-systems-engineering.jpg
-│   └── application-security.jpg
 ├── llm-systems/
 │   ├── day1-am-gpu-fundamentals.jpg
 │   ├── day1-pm-quantization.jpg
 │   └── ...
-└── application-security/
-    ├── day1-am-security-foundations.jpg
-    └── ...
+├── application-security/
+│   ├── day1-am-security-foundations.jpg
+│   └── ...
+└── [course-slug]/
+    └── [day-folder]-[topic-slug].jpg
 ```
 
-### Adding Cover Images
+### Adding Chapter Cover Images
 
 ```bash
 # 1. Create the per-course folder
 mkdir -p public/covers/[course-slug]
 
 # 2. Download from Unsplash (use the photo ID from any unsplash.com URL)
-curl -L -o public/covers/[course-slug]/[chapter-slug].jpg \
+curl -L -o public/covers/[course-slug]/[day]-[topic-slug].jpg \
   "https://images.unsplash.com/photo-[id]?auto=format&fit=crop&q=80&w=1600"
 ```
 
-Then add to the chapter JSON:
+Then add to the chapter JSON (e.g. `courses/[course-slug]/chapters/day1-am/chapter.json`):
 
 ```json
 {
-  "coverImage": "/covers/[course-slug]/[chapter-slug].jpg"
+  "coverImage": "/covers/[course-slug]/[day]-[topic-slug].jpg"
 }
 ```
 
-The renderer in `app/courses/[courseId]/chapters/[chapterId]/page.tsx` falls back to a default Unsplash URL if `coverImage` is missing, so chapters without a cover still work.
+The renderer in `app/courses/[courseId]/chapters/[chapterId]/page.tsx` falls back to a default Unsplash URL if `coverImage` is missing, so chapters without a cover still render — but every shipped chapter should have one.
 
 **Image guidelines:** 1600 px wide, JPEG, < 500 KB after Unsplash's `q=80&w=1600` re-encoding. Pick editorial / atmospheric shots over literal subject matter — abstract circuitry beats stock photos of people pointing at screens.
 
@@ -240,15 +240,17 @@ this repo. Match the editorial style and structure of existing chapters in
 - End with a `further-reading` block linking 4-6 of the primary sources you
   gathered, each with `<span class="src">domain</span>`.
 
-**Cover image:**
-1. Pick an editorial Unsplash photo that fits the topic (avoid stock-photo
-   clichés — prefer atmospheric / abstract / industrial shots).
-2. Download it to `public/covers/[COURSE-SLUG]/[FOLDER]-[CHAPTER-SLUG].jpg`:
+**Chapter cover image (chapter-level only — there are no course-level covers):**
+1. Pick an editorial Unsplash photo that fits the chapter topic (avoid
+   stock-photo clichés — prefer atmospheric / abstract / industrial shots).
+2. Ensure the per-course folder exists and download into it:
    ```bash
+   mkdir -p public/covers/[COURSE-SLUG]
    curl -L -o public/covers/[COURSE-SLUG]/[FOLDER]-[CHAPTER-SLUG].jpg \
      "https://images.unsplash.com/photo-[ID]?auto=format&fit=crop&q=80&w=1600"
    ```
-3. Set `coverImage` in the JSON to the resulting `/covers/...` path.
+3. Set `coverImage` in the *chapter* JSON to the resulting `/covers/...` path.
+   Do NOT add `coverImage` to `course.json` — it's not on the schema.
 
 **Wire-up steps when finished:**
 - Add the new chapter folder to `courses/[COURSE-SLUG]/chapters/index.json`

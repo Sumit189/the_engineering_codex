@@ -1,0 +1,44 @@
+[
+  {
+    "day": 1,
+    "title": "Cloud Foundations & IAM",
+    "color": "#2563eb",
+    "chapterIds": ["cloud-foundations", "iam-deep-dive"]
+  },
+  {
+    "day": 2,
+    "title": "Network Security & Zero Trust",
+    "color": "#0ea5e9",
+    "chapterIds": ["vpc-network-security", "service-mesh-zero-trust"]
+  },
+  {
+    "day": 3,
+    "title": "Kubernetes & Container Security",
+    "color": "#7c3aed",
+    "chapterIds": ["kubernetes-container-security"]
+  },
+  {
+    "day": 4,
+    "title": "Data Protection & Key Management",
+    "color": "#0891b2",
+    "chapterIds": ["data-protection-kms"]
+  },
+  {
+    "day": 5,
+    "title": "Software Supply Chain Security",
+    "color": "#a855f7",
+    "chapterIds": ["supply-chain-security"]
+  },
+  {
+    "day": 6,
+    "title": "Cloud Detection & Incident Response",
+    "color": "#e11d48",
+    "chapterIds": ["cloud-detection-ir"]
+  },
+  {
+    "day": 7,
+    "title": "Governance, Compliance & Architecture",
+    "color": "#059669",
+    "chapterIds": ["governance-architecture-review"]
+  }
+]

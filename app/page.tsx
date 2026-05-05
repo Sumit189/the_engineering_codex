@@ -65,18 +65,8 @@ export default function LandingPage() {
                   hover:-translate-y-1 transition-all duration-200
                   flex flex-col">
 
-                {course.coverImage ? (
-                  <div className="relative h-32 overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={course.coverImage} alt={course.title}
-                      className="w-full h-full object-cover" />
-                    <div className="absolute inset-0"
-                      style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.45) 100%)' }} />
-                    <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ background: course.color }} />
-                  </div>
-                ) : (
-                  <div className="h-1" style={{ background: course.color }} />
-                )}
+                <div className="h-1" style={{ background: course.color }} />
+
 
                 <div className="p-6 flex flex-col flex-1">
                   <div className="text-[11px] font-bold text-[#887364] uppercase tracking-widest mb-1">

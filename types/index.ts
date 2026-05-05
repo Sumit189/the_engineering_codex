@@ -9,7 +9,6 @@ export interface CourseData {
   days: number;
   level: string;
   tags: string[];
-  coverImage?: string;
 }
 
 export interface ChapterNav {

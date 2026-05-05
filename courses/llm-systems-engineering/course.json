@@ -4,7 +4,6 @@
   "subtitle": "7-Day Production Engineering",
   "description": "GPU architecture, inference engines, distributed training, RAG pipelines, and production observability — everything you need to build and operate LLMs at scale.",
   "color": "#8d4b00",
-  "accentColor": "#d97706",
   "duration": "~28 hours",
   "chapters": 9,
   "days": 7,

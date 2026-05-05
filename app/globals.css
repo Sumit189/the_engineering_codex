@@ -623,7 +623,7 @@ body::before {
 }
 .example-step .step-text { font-family: var(--font-serif); font-size: .96rem; color: var(--ink-2); line-height: 1.6; }
 
-/* Further reading — clean grid of links, no decorative top bar */
+/* Further reading — single-line rows: [favicon] title  domain  ↗ */
 .further-reading {
   margin: 2.5rem 0 1.5rem;
   padding: 1.4rem 1.5rem 1.5rem;
@@ -635,58 +635,67 @@ body::before {
   display: flex; align-items: center; gap: .5rem;
   font-size: .68rem; font-weight: 800; text-transform: uppercase;
   letter-spacing: .15em; color: var(--accent);
-  padding-bottom: .85rem;
-  margin-bottom: .5rem;
+  padding-bottom: .9rem;
+  margin-bottom: .35rem;
   border-bottom: 1px solid var(--hairline);
 }
 .further-reading ul {
   list-style: none; padding: 0; margin: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: .15rem;
-}
-@media (min-width: 760px) {
-  .further-reading ul { grid-template-columns: 1fr 1fr; column-gap: .8rem; }
 }
 .further-reading li { padding: 0; margin: 0; border: none; }
+.further-reading li + li { border-top: 1px solid var(--hairline); }
 .further-reading li::before { content: none; }
 .further-reading a {
-  display: flex; align-items: flex-start; gap: .6rem;
-  padding: .55rem .65rem;
+  display: flex; align-items: center; gap: .8rem;
+  padding: .85rem .65rem;
   border-radius: 10px;
   color: var(--ink) !important;
   text-decoration: none !important;
   font-family: var(--font-serif);
-  font-size: .94rem; line-height: 1.4;
+  font-size: .98rem; line-height: 1.35;
   font-weight: 600;
-  transition: background-color .15s, color .15s;
+  transition: background-color .15s, color .15s, padding-left .15s;
   position: relative;
 }
-.further-reading a::before {
+.further-reading a::after {
   content: '↗';
-  display: inline-block;
   flex-shrink: 0;
-  margin-top: .05em;
   color: var(--accent-2);
+  opacity: .45;
   font-weight: 800;
-  font-size: 1em;
-  transition: transform .15s, color .15s;
+  font-size: .95em;
+  transition: transform .15s, opacity .15s, color .15s;
+}
+.fr-favicon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline-2);
+  flex-shrink: 0;
+  object-fit: contain;
+  padding: 2px;
+}
+.dark .fr-favicon { background: #1c1f26; border-color: #2c313d; }
+.further-reading .src {
+  margin-left: auto;
+  font-family: var(--font-mono); font-size: .72em;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color .15s;
 }
 .further-reading a:hover {
   background: var(--accent-soft);
   color: var(--accent) !important;
+  padding-left: .9rem;
 }
-.further-reading a:hover::before {
+.further-reading a:hover .src { color: var(--accent); opacity: .85; }
+.further-reading a:hover::after {
   transform: translate(2px, -2px);
+  opacity: 1;
   color: var(--accent);
-}
-.further-reading .src {
-  display: block;
-  font-family: var(--font-mono); font-size: .7em;
-  color: var(--muted);
-  font-weight: 500;
-  letter-spacing: .01em;
-  margin: .15rem 0 0;
 }
 .dark .further-reading a:hover { background: rgba(244,160,74,0.10); }
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { ProgressProvider } from '@/components/ProgressProvider';
+import AskAITooltip from '@/components/AskAITooltip';
 
 const GA_ID = 'G-7BVP270TE0';
 
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased">
         <ProgressProvider>{children}</ProgressProvider>
+        <AskAITooltip />
 
         {/* Google Analytics — loaded after page is interactive */}
         <Script

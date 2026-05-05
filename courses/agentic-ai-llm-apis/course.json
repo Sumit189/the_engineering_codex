@@ -1,0 +1,21 @@
+{
+  "id": "agentic-ai-llm-apis",
+  "title": "Agentic AI with LLM APIs",
+  "subtitle": "7-Day Production Agent Engineering",
+  "description": "Tool use, agent loops, memory, multi-agent orchestration, computer use, and production observability — build LLM agents that ship, not demos.",
+  "color": "#4f46e5",
+  "duration": "~26 hours",
+  "chapters": 9,
+  "days": 7,
+  "level": "Intermediate to Advanced",
+  "tags": [
+    "Agents",
+    "Tool Use",
+    "MCP",
+    "Memory",
+    "Multi-Agent",
+    "Computer Use",
+    "Observability"
+  ],
+  "coverImage": "/covers/courses/agentic-ai-llm-apis.jpg"
+}

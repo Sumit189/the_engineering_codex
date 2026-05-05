@@ -17,5 +17,6 @@
     "id": "owasp-top-10-part-1",
     "title": "OWASP Top 10 — Part I",
     "folder": "day3"
-  }
+  },
+  "coverImage": "/covers/application-security/day2-pm-authn-authz.jpg"
 }

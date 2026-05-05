@@ -17,5 +17,6 @@
     "id": "model-serving",
     "title": "Model Serving",
     "folder": "day5"
-  }
+  },
+  "coverImage": "/covers/llm-systems/day4-distributed-training.jpg"
 }

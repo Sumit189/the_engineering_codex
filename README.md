@@ -81,6 +81,10 @@ the_engineering_codex/
 │           ├── schedule.json   # Day-by-day schedule
 │           └── [day]/
 │               └── chapter.json  # Chapter content (HTML + metadata)
+├── public/
+│   └── covers/                 # Cover images (served at /covers/...)
+│       ├── courses/            # Course-level hero images
+│       └── [course-id]/        # Per-chapter cover images
 ├── lib/
 │   └── courses.ts              # Data access functions
 └── types/
@@ -100,6 +104,168 @@ the_engineering_codex/
 4. Register the slug in `courses/index.json`.
 
 Chapter content is HTML stored in the `content` field of `chapter.json`. Use semantic elements — the platform's CSS in `globals.css` handles typography, callout blocks, code blocks, and tables.
+
+---
+
+## Cover Images
+
+Every chapter and every course has a hero image displayed at the top of the page. Images live in `public/covers/` and are referenced by absolute URL path in the JSON (Next.js serves `public/` at the URL root).
+
+### Folder Convention
+
+```
+public/covers/
+├── courses/
+│   ├── llm-systems-engineering.jpg
+│   └── application-security.jpg
+├── llm-systems/
+│   ├── day1-am-gpu-fundamentals.jpg
+│   ├── day1-pm-quantization.jpg
+│   └── ...
+└── application-security/
+    ├── day1-am-security-foundations.jpg
+    └── ...
+```
+
+### Adding Cover Images
+
+```bash
+# 1. Create the per-course folder
+mkdir -p public/covers/[course-slug]
+
+# 2. Download from Unsplash (use the photo ID from any unsplash.com URL)
+curl -L -o public/covers/[course-slug]/[chapter-slug].jpg \
+  "https://images.unsplash.com/photo-[id]?auto=format&fit=crop&q=80&w=1600"
+```
+
+Then add to the chapter JSON:
+
+```json
+{
+  "coverImage": "/covers/[course-slug]/[chapter-slug].jpg"
+}
+```
+
+The renderer in `app/courses/[courseId]/chapters/[chapterId]/page.tsx` falls back to a default Unsplash URL if `coverImage` is missing, so chapters without a cover still work.
+
+**Image guidelines:** 1600 px wide, JPEG, < 500 KB after Unsplash's `q=80&w=1600` re-encoding. Pick editorial / atmospheric shots over literal subject matter — abstract circuitry beats stock photos of people pointing at screens.
+
+---
+
+## Chapter JSON Schema
+
+Each `chapter.json` file matches the `ChapterData` interface in `types/index.ts`:
+
+```jsonc
+{
+  "id":         "kv-caching",                  // unique slug, kebab-case
+  "day":        3,                             // 1-7 (or however many your course has)
+  "dayLabel":   "DAY 3",                       // displayed in hero badge ("DAY 1 · AM" if split)
+  "time":       "~4 hrs",                     // estimated reading time
+  "diff":       "intermediate",                // "beginner" | "intermediate" | "advanced"
+  "title":      "KV Caching, Speculative Decoding & Token Throughput",
+  "shortTitle": "KV Cache & Spec Decoding",    // shown in sidebar / breadcrumb
+  "desc":       "One-line summary shown under the title and on the course page.",
+  "coverImage": "/covers/llm-systems/day3-kv-caching.jpg",
+  "content":    "<h2>...</h2><p>...</p>",      // full chapter body as HTML string
+  "prev": { "id": "vllm-trtllm",         "title": "vLLM & TRT-LLM",      "folder": "day2" },
+  "next": { "id": "distributed-training", "title": "Distributed Training", "folder": "day4" }
+}
+```
+
+### Available Content Blocks
+
+The `content` field is HTML. The platform's CSS understands these conventions:
+
+| Block | Markup | Purpose |
+|---|---|---|
+| Callout | `<div class="callout info\|warning\|tip\|key\|danger">...</div>` | Highlighted boxes with icon + body |
+| Code block | `<div class="code-block"><div class="cb-lang">Python</div><pre>...</pre></div>` | Terminal-styled with traffic lights, syntax classes (`.kw`, `.str`, `.num`, `.cmt`, `.fn`, `.cls`, `.op`) |
+| Figure + SVG | `<div class="figure"><div class="figure-svg"><svg class="svg-anim">...</svg></div><div class="figure-caption">...</div></div>` | Animated SVG diagrams (see below) |
+| Table | `<div class="table-wrap"><table>...</table></div>` | Auto-styled responsive tables |
+| Compare grid | `<div class="compare-grid"><div class="compare-card">...</div>...</div>` | Side-by-side option comparisons |
+| Formula | `<div class="formula"><div class="f-label">Name</div>EQUATION</div>` | Highlighted equation block |
+| Flashcard | `<div class="flashcard">...front/back...</div>` | Click-to-flip Q&A |
+| Mnemonic | `<div class="mnemonic">...</div>` | Memory-aid block |
+| Recall check | `<div class="recall">...question + <details>answer</details>...</div>` | Inline self-test |
+| Further reading | `<div class="further-reading"><span class="further-reading-label">📚 Further reading</span><ul>...</ul></div>` | References with `<span class="src">domain</span>` tags |
+
+### SVG Animation Classes
+
+Available animation utilities (defined in `globals.css`):
+
+- `.svg-anim` — required wrapper class on the `<svg>`
+- `.pop .d-1` … `.d-6` — staggered scale-in entries (`d-N` is the delay tier)
+- `.fade-up .d-N` — fade + slide-up on entry
+- `.pulse .d-N` — infinite scale/opacity pulse (good for "active computation")
+- `.flow` — infinite dashed-line flow on `<line>` / `<path>`
+- `.draw-path .draw-slow` — stroke-dasharray draw-on animation (requires `pathLength="1"` on the path)
+
+Native SVG `<animateMotion>` works too — see `courses/llm-systems-engineering/chapters/day1-am/chapter.json` for a multi-packet data-flow example.
+
+---
+
+## Authoring Chapters with Claude
+
+Use this prompt template to draft a new chapter end-to-end. Paste it into Claude Code (or the API) inside the repo root — Claude can read existing chapters as references, fetch citations, write the JSON, design SVG animations, and download a cover image.
+
+````markdown
+You are authoring chapter `[CHAPTER-SLUG]` for the `[COURSE-SLUG]` course in
+this repo. Match the editorial style and structure of existing chapters in
+`courses/[COURSE-SLUG]/chapters/`.
+
+**Topic:** [TOPIC and one-paragraph scope]
+
+**Context to gather first (use WebSearch / WebFetch):**
+1. The 3-5 most authoritative primary sources on this topic (papers, official
+   docs, RFCs). Note the canonical URL and one-line summary of each.
+2. Any common misconceptions or pitfalls practitioners hit in production.
+3. Numbers / benchmarks worth quoting (with source).
+
+**Then produce a chapter JSON at**
+`courses/[COURSE-SLUG]/chapters/[FOLDER]/chapter.json` matching the
+`ChapterData` schema in `types/index.ts`. Required fields: `id`, `day`,
+`dayLabel`, `time`, `diff`, `title`, `shortTitle`, `desc`, `coverImage`,
+`content`, `prev`, `next`.
+
+**Content requirements (HTML inside the `content` field):**
+- Open with a 1-paragraph hook framing the practical problem.
+- Use the available content blocks documented in `README.md` — at minimum:
+  one `callout key` (key takeaways), 1-2 code blocks, one table, and 2-3
+  inline citations as `<a href="..." target="_blank" rel="noopener">`.
+- Include **at least one animated SVG** in the `figure` wrapper. Use the
+  `.svg-anim` framework classes (`pop`, `fade-up`, `pulse`, `flow`,
+  `animateMotion`) — no new CSS. Reference an existing chapter for the
+  pattern (e.g. `day1-am/chapter.json`'s GPU data-flow animation).
+- End with a `further-reading` block linking 4-6 of the primary sources you
+  gathered, each with `<span class="src">domain</span>`.
+
+**Cover image:**
+1. Pick an editorial Unsplash photo that fits the topic (avoid stock-photo
+   clichés — prefer atmospheric / abstract / industrial shots).
+2. Download it to `public/covers/[COURSE-SLUG]/[FOLDER]-[CHAPTER-SLUG].jpg`:
+   ```bash
+   curl -L -o public/covers/[COURSE-SLUG]/[FOLDER]-[CHAPTER-SLUG].jpg \
+     "https://images.unsplash.com/photo-[ID]?auto=format&fit=crop&q=80&w=1600"
+   ```
+3. Set `coverImage` in the JSON to the resulting `/covers/...` path.
+
+**Wire-up steps when finished:**
+- Add the new chapter folder to `courses/[COURSE-SLUG]/chapters/index.json`
+- Add it to the right day in `courses/[COURSE-SLUG]/chapters/schedule.json`
+- Update `prev` / `next` on the surrounding chapters
+- Run `npx tsc --noEmit` to confirm the JSON shape still validates
+
+**Style guardrails:**
+- Concrete > abstract. Lead with what breaks in production, then explain why.
+- Cite numbers (latency, cost, throughput) — link the source.
+- No filler ("In today's fast-paced world…"). Get to the technical point.
+- Match the typographic rhythm of existing chapters: `<h2>` for sections,
+  `<h3>` for subsections, short paragraphs, frequent callouts.
+````
+
+When iterating on an existing chapter, swap the "produce a chapter JSON" step
+for "edit the existing JSON in place" and skip the wire-up steps.
 
 ---
 

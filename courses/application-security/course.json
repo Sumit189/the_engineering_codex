@@ -8,5 +8,14 @@
   "chapters": 9,
   "days": 7,
   "level": "Beginner to Advanced",
-  "tags": ["OWASP", "CIA Triad", "AuthN/AuthZ", "Cryptography", "TLS", "Threat Modeling", "Cloud Security"]
+  "tags": [
+    "OWASP",
+    "CIA Triad",
+    "AuthN/AuthZ",
+    "Cryptography",
+    "TLS",
+    "Threat Modeling",
+    "Cloud Security"
+  ],
+  "coverImage": "/covers/courses/application-security.jpg"
 }

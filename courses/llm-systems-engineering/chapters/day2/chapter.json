@@ -17,5 +17,6 @@
     "id": "kv-caching",
     "title": "KV Cache & Spec Decoding",
     "folder": "day3"
-  }
+  },
+  "coverImage": "/covers/llm-systems/day2-inference-engines.jpg"
 }

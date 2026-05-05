@@ -13,5 +13,6 @@
     "id": "quantization-batching",
     "title": "Quantization & Batching",
     "folder": "day1-pm"
-  }
+  },
+  "coverImage": "/covers/llm-systems/day1-am-gpu-fundamentals.jpg"
 }

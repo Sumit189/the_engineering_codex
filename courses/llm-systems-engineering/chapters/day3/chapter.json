@@ -17,5 +17,6 @@
     "id": "distributed-training",
     "title": "Distributed Training",
     "folder": "day4"
-  }
+  },
+  "coverImage": "/covers/llm-systems/day3-kv-caching.jpg"
 }

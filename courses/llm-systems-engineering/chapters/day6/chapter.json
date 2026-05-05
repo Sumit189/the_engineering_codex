@@ -17,5 +17,6 @@
     "id": "prompt-caching",
     "title": "Cost Optimization",
     "folder": "day7-am"
-  }
+  },
+  "coverImage": "/covers/llm-systems/day6-vector-db.jpg"
 }

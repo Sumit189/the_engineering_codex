@@ -17,5 +17,6 @@
     "id": "vector-db",
     "title": "Vector DB & RAG",
     "folder": "day6"
-  }
+  },
+  "coverImage": "/covers/llm-systems/day5-model-serving.jpg"
 }

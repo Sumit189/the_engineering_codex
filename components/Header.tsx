@@ -32,9 +32,10 @@ export default function Header({ courseTitle, courseId, progress }: Props) {
 
   return (
     <header className="fixed top-0 left-0 right-0 h-14 z-50
-      bg-[rgba(255,248,245,0.72)] dark:bg-[rgba(17,14,11,0.80)]
-      backdrop-blur-xl saturate-150
-      border-b border-[rgba(219,194,176,0.45)] dark:border-[rgba(60,44,34,0.45)]
+      bg-[rgba(255,248,245,0.55)] dark:bg-[rgba(15,17,21,0.55)]
+      backdrop-blur-2xl backdrop-saturate-[1.8]
+      border-b border-[rgba(219,194,176,0.35)] dark:border-[rgba(255,255,255,0.06)]
+      shadow-[0_1px_0_rgba(255,255,255,0.5)_inset] dark:shadow-[0_1px_0_rgba(255,255,255,0.04)_inset]
       flex items-center justify-between px-3 gap-3">
 
       {/* Left — sidebar toggle + breadcrumb */}

@@ -4,7 +4,6 @@ export interface CourseData {
   subtitle: string;
   description: string;
   color: string;
-  accentColor: string;
   duration: string;
   chapters: number;
   days: number;
@@ -25,11 +24,9 @@ export interface ChapterData {
   dayLabel: string;
   time: string;
   diff: 'beginner' | 'intermediate' | 'advanced';
-  emoji: string;
   title: string;
   shortTitle: string;
   desc: string;
-  color: string;
   content: string;
   prev: ChapterNav | null;
   next: ChapterNav | null;

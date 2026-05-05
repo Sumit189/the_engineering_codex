@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { ProgressProvider } from '@/components/ProgressProvider';
+
+const GA_ID = 'G-7BVP270TE0';
 
 export const metadata: Metadata = {
   title: 'The Engineering Codex',
@@ -36,6 +39,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased">
         <ProgressProvider>{children}</ProgressProvider>
+
+        {/* Google Analytics — loaded after page is interactive */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );

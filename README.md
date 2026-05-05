@@ -4,6 +4,8 @@ A structured learning platform for engineers who want to deeply understand and o
 
 Each course is a focused, multi-day curriculum with hands-on content, progress tracking, bookmarks, and a reading experience built for focus.
 
+> **Repo:** [github.com/Sumit189/the_engineering_codex](https://github.com/Sumit189/the_engineering_codex) — issues, PRs, and new course proposals welcome.
+
 ---
 
 ## Features
@@ -40,7 +42,7 @@ Each course is a focused, multi-day curriculum with hands-on content, progress t
 ### Install & Run
 
 ```bash
-git clone https://github.com/your-org/the-engineering-codex.git
+git clone https://github.com/Sumit189/the_engineering_codex.git
 cd the-engineering-codex
 npm install
 npm run dev
@@ -282,7 +284,7 @@ Contributions are welcome — whether that's a new course, a bug fix, a UI impro
 ### 1. Fork & Branch
 
 ```bash
-git clone https://github.com/your-org/the-engineering-codex.git
+git clone https://github.com/Sumit189/the_engineering_codex.git
 cd the-engineering-codex
 git checkout -b feat/your-feature-name
 ```

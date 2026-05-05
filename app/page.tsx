@@ -1,9 +1,19 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
-import { getAllCourses } from '@/lib/courses';
+import ReadTime from '@/components/ReadTime';
+import { getAllCourses, getCourseIds, getChapters } from '@/lib/courses';
+import { countWords } from '@/lib/readingTime';
 
 export default function LandingPage() {
   const courses = getAllCourses();
+
+  // Compute total word count per course at build time
+  const wordCounts: Record<string, number> = {};
+  for (const id of getCourseIds()) {
+    try {
+      wordCounts[id] = getChapters(id).reduce((sum, ch) => sum + countWords(ch.content), 0);
+    } catch { wordCounts[id] = 0; }
+  }
 
   return (
     <>
@@ -26,9 +36,9 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-wrap gap-2 mb-16">
             {[
-              { icon: 'bolt',       label: 'Hands-on code' },
-              { icon: 'verified',   label: 'Production-focused' },
-              { icon: 'trending_up',label: 'Beginner to advanced' },
+              { icon: 'bolt',        label: 'Hands-on code' },
+              { icon: 'verified',    label: 'Production-focused' },
+              { icon: 'trending_up', label: 'Beginner to advanced' },
             ].map(({ icon, label }) => (
               <span key={label}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
@@ -55,7 +65,6 @@ export default function LandingPage() {
                   hover:-translate-y-1 transition-all duration-200
                   flex flex-col">
 
-                {/* Cover image or accent bar */}
                 {course.coverImage ? (
                   <div className="relative h-32 overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -82,7 +91,6 @@ export default function LandingPage() {
                     {course.description}
                   </p>
 
-                  {/* Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-5">
                     {course.tags.slice(0, 5).map(tag => (
                       <span key={tag}
@@ -95,22 +103,28 @@ export default function LandingPage() {
                     ))}
                   </div>
 
-                  {/* Meta chips */}
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-[#f2dfd3] dark:border-[#221e1a]">
-                    {[
-                      { icon: 'schedule', label: course.duration },
-                      { icon: 'layers',   label: `${course.chapters} chapters` },
-                      { icon: 'calendar_today', label: `${course.days} days` },
-                      { icon: 'signal_cellular_alt', label: course.level },
-                    ].map(({ icon, label }) => (
-                      <span key={label}
-                        className="inline-flex items-center gap-1 text-[11px] font-semibold
-                          text-[#887364] dark:text-[#a89888]">
-                        <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
-                          style={{ fontSize: 12 }}>{icon}</span>
-                        {label}
-                      </span>
-                    ))}
+                  <div className="flex flex-wrap gap-3 pt-4 border-t border-[#f2dfd3] dark:border-[#221e1a]
+                    text-[11px] font-semibold text-[#887364] dark:text-[#a89888]">
+                    <span className="inline-flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                        style={{ fontSize: 12 }}>schedule</span>
+                      <ReadTime wordCount={wordCounts[course.id] ?? 0} />
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                        style={{ fontSize: 12 }}>layers</span>
+                      {course.chapters} chapters
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                        style={{ fontSize: 12 }}>calendar_today</span>
+                      {course.days} days
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[#8d4b00] dark:text-[#e8903a]"
+                        style={{ fontSize: 12 }}>signal_cellular_alt</span>
+                      {course.level}
+                    </span>
                   </div>
                 </div>
               </Link>

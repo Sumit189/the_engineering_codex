@@ -104,60 +104,103 @@ export default function AskAITooltip() {
   const [text,    setText]    = useState('');
   const [pos,     setPos]     = useState<Pos | null>(null);
   const [visible, setVisible] = useState(false);
-  const tooltipRef = useRef<HTMLDivElement>(null);
+  const tooltipRef    = useRef<HTMLDivElement>(null);
+  const selBoundsRef  = useRef<{ top: number; bottom: number } | null>(null);
 
   useEffect(() => {
-    let raf = 0;
+    /**
+     * Placement strategy — selection bounding rect, position BELOW.
+     *
+     * Dead simple: anchor the tooltip to the bottom-center of the selection's
+     * bounding rect. The tooltip sits just below the selected text, centered
+     * horizontally on the column. This is unambiguous, predictable, and
+     * matches what every browser/IDE selection tooltip does (Notion, Linear,
+     * Google Docs, GitHub).
+     *
+     * We compute the bounding rect from the *list of line rects*
+     * (getClientRects), bounding only the rects that actually contain text
+     * — this avoids phantom rects between block elements that pollute the
+     * default getBoundingClientRect() of cross-block selections.
+     */
+    function placeFromSelection() {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !sel.rangeCount) { setVisible(false); return; }
+      const selectedText = sel.toString().trim();
+      if (selectedText.length < 2) { setVisible(false); return; }
 
-    function update() {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const sel = window.getSelection();
-        if (!sel || sel.isCollapsed || !sel.rangeCount) {
-          setVisible(false);
-          return;
+      const range = sel.getRangeAt(0);
+      if (tooltipRef.current
+          && tooltipRef.current.contains(range.commonAncestorContainer)) return;
+
+      // Aggregate only the meaningful line rects (filter out empty / phantom
+      // ones from block boundaries). Then compute our own bounding rect.
+      const rects = Array.from(range.getClientRects())
+        .filter(r => r.width > 1 && r.height > 1);
+
+      let top: number, bottom: number, left: number, right: number;
+      if (rects.length > 0) {
+        top    = Math.min(...rects.map(r => r.top));
+        bottom = Math.max(...rects.map(r => r.bottom));
+        left   = Math.min(...rects.map(r => r.left));
+        right  = Math.max(...rects.map(r => r.right));
+      } else {
+        const fallback = range.getBoundingClientRect();
+        if (fallback.width === 0 && fallback.height === 0) {
+          setVisible(false); return;
         }
-        const selectedText = sel.toString().trim();
-        if (selectedText.length < 2) {
-          setVisible(false);
-          return;
-        }
-        const range = sel.getRangeAt(0);
-        const ancestor = range.commonAncestorContainer as Node;
-        // Don't show if selection is *inside* the tooltip itself
-        if (tooltipRef.current && tooltipRef.current.contains(ancestor)) return;
+        top    = fallback.top;
+        bottom = fallback.bottom;
+        left   = fallback.left;
+        right  = fallback.right;
+      }
 
-        const rect = range.getBoundingClientRect();
-        if (rect.width === 0 && rect.height === 0) return;
-
-        setText(selectedText);
-        setPos({
-          top:  rect.top + window.scrollY,
-          left: rect.left + rect.width / 2 + window.scrollX,
-        });
-        setVisible(true);
+      setText(selectedText);
+      setPos({
+        // We store both extremes — the renderer decides above vs below
+        // based on viewport room.
+        top:    bottom,                   // bottom of selection (for placement below)
+        left:   (left + right) / 2,       // horizontal center of bounding rect
       });
+      // Stash the selection's vertical extent so the renderer can flip
+      // intelligently if there's no room below.
+      selBoundsRef.current = { top, bottom };
+      setVisible(true);
     }
 
-    function onSelectionChange() { update(); }
+    function schedule() { requestAnimationFrame(placeFromSelection); }
+
+    function onMouseUp()  { schedule(); }
+    function onTouchEnd() { schedule(); }
+    function onKeyUp(e: KeyboardEvent) {
+      if (e.shiftKey || ((e.metaKey || e.ctrlKey) && e.key === 'a')) schedule();
+    }
+    function onSelectionChange() {
+      // Hide-only on selection clear. Never reposition here.
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.toString().trim().length < 2) {
+        setVisible(false);
+      }
+    }
     function onMouseDown(e: MouseEvent) {
-      // hide if clicking outside the tooltip
       if (tooltipRef.current && !tooltipRef.current.contains(e.target as Node)) {
         const sel = window.getSelection();
         if (!sel || sel.isCollapsed) setVisible(false);
       }
     }
     function onScroll() { setVisible(false); }
-    function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setVisible(false);
-    }
+    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') setVisible(false); }
 
+    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('touchend', onTouchEnd);
+    document.addEventListener('keyup', onKeyUp);
     document.addEventListener('selectionchange', onSelectionChange);
     document.addEventListener('mousedown', onMouseDown);
     window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('keydown', onKey);
     return () => {
-      cancelAnimationFrame(raf);
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('touchend', onTouchEnd);
+      document.removeEventListener('keyup', onKeyUp);
       document.removeEventListener('selectionchange', onSelectionChange);
       document.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('scroll', onScroll);
@@ -166,6 +209,26 @@ export default function AskAITooltip() {
   }, []);
 
   if (!visible || !pos) return null;
+
+  // Clamp horizontal position so the card stays within the viewport edges.
+  const HALF_WIDTH = 170; // ~ half the card's typical width
+  const clampedLeft = typeof window !== 'undefined'
+    ? Math.min(Math.max(pos.left, HALF_WIDTH + 8), window.innerWidth - HALF_WIDTH - 8)
+    : pos.left;
+
+  // Default: card sits BELOW the selection. Flip ABOVE only if there isn't
+  // enough room below (e.g., selection runs to the bottom of the viewport).
+  const SELECTION_GAP    = 10;
+  const ESTIMATED_HEIGHT = 80;
+  const bounds = selBoundsRef.current;
+  const selTop    = bounds?.top    ?? pos.top;
+  const selBottom = bounds?.bottom ?? pos.top;
+  const viewportH = typeof window !== 'undefined' ? window.innerHeight : 1000;
+
+  const roomBelow = viewportH - selBottom;
+  const roomAbove = selTop;
+  const flipAbove = roomBelow < ESTIMATED_HEIGHT + SELECTION_GAP + 12
+                    && roomAbove > roomBelow;
 
   // Pull course / chapter context from data attributes set on the chapter page.
   // Safe under SSR — this code only runs in `useEffect`/render after hydration.
@@ -193,14 +256,18 @@ export default function AskAITooltip() {
       ref={tooltipRef}
       role="tooltip"
       style={{
-        position: 'absolute',
-        top:  pos.top - 8,    // 8px above selection
-        left: pos.left,
-        transform: 'translate(-50%, -100%)',
+        position: 'fixed',
+        // Default: BELOW the selection (anchor at selection's bottom edge,
+        //          card extends downward).
+        // Flipped ABOVE: anchor at selection's top, card extends upward via
+        //                translateY(-100%).
+        top:  flipAbove ? selTop - SELECTION_GAP : selBottom + SELECTION_GAP,
+        left: clampedLeft,
+        transform: flipAbove ? 'translate(-50%, -100%)' : 'translate(-50%, 0)',
       }}
       className="z-[60] pointer-events-auto"
       onMouseDown={(e) => e.preventDefault() /* keep selection alive */}>
-      <div className="ask-ai-card">
+      <div className={`ask-ai-card ${flipAbove ? '' : 'flip'}`}>
         <div className="ask-ai-label">Ask about this in</div>
         <div className="ask-ai-row">
           {SERVICES.map(svc => (
@@ -297,6 +364,19 @@ export default function AskAITooltip() {
           background-color: #1a1c22;
           border-right-color: rgba(255,255,255,0.08);
           border-bottom-color: rgba(255,255,255,0.08);
+        }
+        /* Flipped state: card sits below selection — arrow points up. */
+        .ask-ai-card.flip .ask-ai-arrow {
+          bottom: auto;
+          top: -6px;
+          border-right: none;
+          border-bottom: none;
+          border-left: 1px solid rgba(0,0,0,0.06);
+          border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        :global(.dark) .ask-ai-card.flip .ask-ai-arrow {
+          border-left-color: rgba(255,255,255,0.08);
+          border-top-color: rgba(255,255,255,0.08);
         }
         @keyframes ask-ai-pop {
           0%   { opacity: 0; transform: translate(-50%, calc(-100% + 4px)) scale(0.96); }

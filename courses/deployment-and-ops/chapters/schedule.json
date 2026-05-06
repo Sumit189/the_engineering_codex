@@ -1,0 +1,44 @@
+[
+  {
+    "day": 1,
+    "title": "DNS & The Routing of a Request",
+    "color": "#0ea5e9",
+    "chapterIds": ["dns-and-routing"]
+  },
+  {
+    "day": 2,
+    "title": "Linux Servers & EC2",
+    "color": "#f59e0b",
+    "chapterIds": ["linux-and-ec2"]
+  },
+  {
+    "day": 3,
+    "title": "NGINX — The Front Door",
+    "color": "#059669",
+    "chapterIds": ["nginx-front-door"]
+  },
+  {
+    "day": 4,
+    "title": "TLS & Certificate Lifecycle",
+    "color": "#dc2626",
+    "chapterIds": ["tls-and-certificates"]
+  },
+  {
+    "day": 5,
+    "title": "Systemd & Zero-Downtime Deploys",
+    "color": "#7c3aed",
+    "chapterIds": ["systemd-and-deploys"]
+  },
+  {
+    "day": 6,
+    "title": "Containers & Docker",
+    "color": "#0891b2",
+    "chapterIds": ["containers-and-docker"]
+  },
+  {
+    "day": 7,
+    "title": "CI/CD & Production Hygiene",
+    "color": "#a855f7",
+    "chapterIds": ["cicd-and-operations"]
+  }
+]

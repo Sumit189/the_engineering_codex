@@ -6,6 +6,7 @@ import ChapterActions from '@/components/ChapterActions';
 import ChapterTracker from '@/components/ChapterTracker';
 import ReadTime from '@/components/ReadTime';
 import ReaderShell from '@/components/ReaderShell';
+import ChapterContentWrapper from '@/components/ChapterContentWrapper';
 import ReadingSettings from '@/components/ReadingSettings';
 import ScrollProgress from '@/components/ScrollProgress';
 import TableOfContents from '@/components/TableOfContents';
@@ -65,9 +66,9 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
       <FaviconEnhancer />
 
       <ReaderShell>
-        <div className="max-w-[760px] mx-auto xl:ml-28 xl:mr-auto 2xl:ml-40 px-5 py-10"
-          data-course-title={course.title}
-          data-chapter-title={chapter.title}>
+        <ChapterContentWrapper
+          courseTitle={course.title}
+          chapterTitle={chapter.title}>
 
           {/* Hero — atmospheric, title-free */}
           <div className="relative w-full h-[268px] md:h-[372px] rounded-[24px] overflow-hidden mb-9
@@ -184,7 +185,7 @@ export default function ChapterPage({ params: { courseId, chapterId } }: Props) 
             />
           </div>
 
-        </div>
+        </ChapterContentWrapper>
       </ReaderShell>
     </>
   );

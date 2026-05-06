@@ -1,0 +1,13 @@
+{
+  "id": "deployment-and-ops",
+  "title": "From Code to Internet: Deployment & Operations",
+  "subtitle": "7-Day Practical Shipping Course",
+  "description": "Everything that happens after the code compiles. DNS, Linux servers, NGINX, TLS, systemd, zero-downtime deploys, Docker, CI/CD, monitoring, and on-call — the boring, load-bearing skills that separate a localhost demo from a public URL someone is willing to pay for.",
+  "color": "#0ea5e9",
+  "duration": "~24 hours",
+  "chapters": 7,
+  "days": 7,
+  "level": "Beginner to Intermediate",
+  "tags": ["DNS", "NGINX", "EC2", "AWS", "Linux", "TLS", "HTTPS", "systemd", "Docker", "CI/CD", "Monitoring", "DevOps"],
+  "coverImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200"
+}

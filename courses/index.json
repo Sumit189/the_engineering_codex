@@ -7,6 +7,7 @@
   "courses": [
     { "slug": "llm-systems-engineering", "domain": "infrastructure" },
     { "slug": "backend-engineering",     "domain": "infrastructure" },
+    { "slug": "deployment-and-ops",      "domain": "infrastructure" },
     { "slug": "agentic-ai-llm-apis",     "domain": "ai" },
     { "slug": "application-security",    "domain": "security" },
     { "slug": "cloud-security",          "domain": "security" }

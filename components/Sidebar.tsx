@@ -83,7 +83,7 @@ export default function Sidebar({ courseId, chapters, currentChapter }: Props) {
 
         {/* Day pills */}
         <div className="grid grid-cols-7 gap-1">
-          {Array.from({ length: 7 }, (_, i) => i + 1).map(day => {
+          {Array.from({ length: Math.max(...chapters.map(c => c.day), 1) }, (_, i) => i + 1).map(day => {
             const dayChaps = chapters.filter(c => c.day === day);
             const allDone  = dayChaps.length > 0 && dayChaps.every(c => isCompleted(courseId, c.id));
             return (

@@ -1,0 +1,38 @@
+[
+  {
+    "day": 1,
+    "title": "Capacity Planning",
+    "color": "#be123c",
+    "chapterIds": ["envelope-estimation"]
+  },
+  {
+    "day": 2,
+    "title": "Serving Engines",
+    "color": "#f59e0b",
+    "chapterIds": ["vllm-and-serving-engines"]
+  },
+  {
+    "day": 3,
+    "title": "Deploying on Real Hardware",
+    "color": "#0d9488",
+    "chapterIds": ["serving-on-ec2-gpu"]
+  },
+  {
+    "day": 4,
+    "title": "Fine-Tuning",
+    "color": "#7c3aed",
+    "chapterIds": ["fine-tuning-lora-qlora-dpo"]
+  },
+  {
+    "day": 5,
+    "title": "Evaluation & Drift",
+    "color": "#2563eb",
+    "chapterIds": ["evaluation-and-drift-pipelines"]
+  },
+  {
+    "day": 6,
+    "title": "Latency & Tuning",
+    "color": "#dc2626",
+    "chapterIds": ["ttft-metrics-and-tuning"]
+  }
+]

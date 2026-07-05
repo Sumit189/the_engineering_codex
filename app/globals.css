@@ -569,6 +569,62 @@ body::before {
 }
 .recall details[open] summary::before { transform: rotate(90deg); }
 
+/* Quiz — pure CSS/HTML radio quiz, immediate per-option feedback via :has() */
+.quiz {
+  margin: 1.8rem 0;
+  border-radius: 14px;
+  border: 1px solid var(--hairline-2);
+  background: var(--surface);
+  padding: 1.2rem 1.3rem;
+}
+.quiz-label {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em;
+  color: var(--accent); margin-bottom: .7rem;
+}
+.quiz-q {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 600;
+  color: var(--ink); line-height: 1.5; margin-bottom: .8rem;
+}
+.quiz-options { display: flex; flex-direction: column; gap: .5rem; }
+.quiz-opt {
+  position: relative; display: block;
+  padding: .7rem .9rem;
+  border: 1.5px solid var(--hairline-2);
+  border-radius: 10px;
+  background: var(--surface-2);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.quiz-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.quiz-opt-text { font-size: .92rem; color: var(--ink-2); }
+.quiz-opt-why {
+  display: none;
+  margin-top: .5rem; padding-top: .5rem;
+  border-top: 1px dashed var(--hairline-2);
+  font-size: .82rem; line-height: 1.55; color: var(--muted);
+}
+.quiz-opt:has(input:checked) .quiz-opt-why { display: block; }
+.quiz-opt:has(input:checked) { border-color: var(--soft); }
+.quiz-opt.quiz-correct:has(input:checked) {
+  border-color: #059669; background: #f0fdf4;
+}
+.quiz-opt.quiz-correct:has(input:checked) .quiz-opt-text::after {
+  content: ' \2713 Correct'; color: #059669; font-weight: 700;
+}
+.quiz-opt:not(.quiz-correct):has(input:checked) {
+  border-color: #dc2626; background: #fef2f2;
+}
+.quiz-opt:not(.quiz-correct):has(input:checked) .quiz-opt-text::after {
+  content: ' \2717 Not quite'; color: #dc2626; font-weight: 700;
+}
+.dark .quiz { background: var(--surface); border-color: var(--hairline-2); }
+.dark .quiz-opt { background: #1a1d2e; border-color: var(--hairline-2); }
+.dark .quiz-opt.quiz-correct:has(input:checked) { background: #0c1f15; border-color: #145232; }
+.dark .quiz-opt.quiz-correct:has(input:checked) .quiz-opt-text::after { color: #34d399; }
+.dark .quiz-opt:not(.quiz-correct):has(input:checked) { background: #1f0d0f; border-color: #501a1d; }
+.dark .quiz-opt:not(.quiz-correct):has(input:checked) .quiz-opt-text::after { color: #f87171; }
+
 /* Mnemonic block */
 .mnemonic {
   margin: 1.6rem 0;

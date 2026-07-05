@@ -1,0 +1,24 @@
+{
+  "id": "practical-guide-to-llmops",
+  "title": "The Practical Guide to LLMOps",
+  "subtitle": "6-Day Hands-On LLMOps",
+  "description": "Capacity-plan a serving cluster with back-of-envelope math, stand up vLLM on a real GPU box, fine-tune with LoRA/QLoRA/DPO, and build the eval and drift-detection pipelines that keep a model trustworthy in production — the operational skills between a checkpoint and a reliable endpoint.",
+  "color": "#be123c",
+  "duration": "~20 hours",
+  "chapters": 6,
+  "days": 6,
+  "level": "Intermediate to Advanced",
+  "tags": [
+    "LLMOps",
+    "Capacity Planning",
+    "vLLM",
+    "EC2",
+    "LoRA",
+    "QLoRA",
+    "RLHF",
+    "DPO",
+    "Model Evaluation",
+    "Drift Detection",
+    "TTFT"
+  ]
+}
